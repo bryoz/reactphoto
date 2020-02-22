@@ -21,7 +21,7 @@ class Navigation extends Component {
                 </li>
                 {pages.map((page) =>(
                     <li key={page.name}>
-                        <NavLink activeStyle={active} to={page.path}>
+                        <NavLink activeStyle={active} to={`/${page.path}`}>
                             {page.name}
                         </NavLink>
                     </li>

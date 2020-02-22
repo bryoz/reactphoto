@@ -12,18 +12,6 @@
             "children": [
                 {
                     "type": "image",
-                    "name": "berlin",
-                    "path": "travel/germany",
-                    "src": "travel/germany/berlin.jpg",
-                    "meta": {
-                        "format": "jpeg",
-                        "width": 1650,
-                        "height": 1100,
-                        "orientation": "landscape"
-                    }
-                },
-                {
-                    "type": "image",
                     "name": "castle",
                     "path": "travel/germany",
                     "src": "travel/germany/castle.jpg",
@@ -36,13 +24,13 @@
                 },
                 {
                     "type": "image",
-                    "name": "glass-building",
+                    "name": "berlin",
                     "path": "travel/germany",
-                    "src": "travel/germany/glass-building.jpg",
+                    "src": "travel/germany/berlin.jpg",
                     "meta": {
                         "format": "jpeg",
-                        "width": 2089,
-                        "height": 1175,
+                        "width": 1650,
+                        "height": 1100,
                         "orientation": "landscape"
                     }
                 },
@@ -55,6 +43,18 @@
                         "format": "jpeg",
                         "width": 1650,
                         "height": 1101,
+                        "orientation": "landscape"
+                    }
+                },
+                {
+                    "type": "image",
+                    "name": "glass-building",
+                    "path": "travel/germany",
+                    "src": "travel/germany/glass-building.jpg",
+                    "meta": {
+                        "format": "jpeg",
+                        "width": 2089,
+                        "height": 1175,
                         "orientation": "landscape"
                     }
                 }
@@ -124,6 +124,18 @@
                 },
                 {
                     "type": "image",
+                    "name": "mountains",
+                    "path": "travel/scotland",
+                    "src": "travel/scotland/mountains.jpg",
+                    "meta": {
+                        "format": "jpeg",
+                        "width": 1000,
+                        "height": 1250,
+                        "orientation": "portrait"
+                    }
+                },
+                {
+                    "type": "image",
                     "name": "ruins",
                     "path": "travel/scotland",
                     "src": "travel/scotland/ruins.jpg",
@@ -144,18 +156,6 @@
                         "width": 2088,
                         "height": 1177,
                         "orientation": "landscape"
-                    }
-                },
-                {
-                    "type": "image",
-                    "name": "mountains",
-                    "path": "travel/scotland",
-                    "src": "travel/scotland/mountains.jpg",
-                    "meta": {
-                        "format": "jpeg",
-                        "width": 1000,
-                        "height": 1250,
-                        "orientation": "portrait"
                     }
                 }
             ]

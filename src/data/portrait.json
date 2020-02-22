@@ -6,13 +6,13 @@
     "children": [
         {
             "type": "image",
-            "name": "woman-blonde",
+            "name": "man-outside",
             "path": "portrait",
-            "src": "portrait/woman-blonde.jpg",
+            "src": "portrait/man-outside.jpg",
             "meta": {
                 "format": "jpeg",
-                "width": 882,
-                "height": 1568,
+                "width": 934,
+                "height": 1399,
                 "orientation": "portrait"
             }
         },
@@ -30,13 +30,13 @@
         },
         {
             "type": "image",
-            "name": "man-outside",
+            "name": "woman-blonde",
             "path": "portrait",
-            "src": "portrait/man-outside.jpg",
+            "src": "portrait/woman-blonde.jpg",
             "meta": {
                 "format": "jpeg",
-                "width": 934,
-                "height": 1399,
+                "width": 882,
+                "height": 1568,
                 "orientation": "portrait"
             }
         },

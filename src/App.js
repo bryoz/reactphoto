@@ -1,17 +1,17 @@
 import React from "react";
 import {
     BrowserRouter as Router,
-    Route,
     Switch
 } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Navigation from "./components/navigation/Navigation";
-import Photos from "./views/gallery/Photos";
-import data from "./data/index.json";
+import siteNav from "./data/index.json";
+import RouteCustom from "./components/route/RouteCustom";
+import Page from "./components/page/Page";
 
 export default function App() {
 
-    const pages = Object.values(data);
+    const pages = Object.values(siteNav);
 
     return (
         <Router>
@@ -26,11 +26,13 @@ export default function App() {
                 <p>Junk n' other stuff</p>
                 <Switch>
                     {pages.map(page => 
-                        <Route key={page.path} path={`/${page.path}`}> 
-                            <Photos filename={page.filename} />
-                        </Route>
+                        <RouteCustom 
+                            filename={page.filename} 
+                            key={page.path} 
+                            path={`/${page.path}`}
+                            component={Page}
+                        /> 
                     )}
-
                 </Switch>
             </div>
         </Router>

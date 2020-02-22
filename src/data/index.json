@@ -3,12 +3,12 @@
         "filename": "portrait.json",
         "name": "portrait",
         "path": "portrait",
-        "thumbnail": null
+        "thumbnail": "https://via.placeholder.com/400"
     },
     "travel": {
         "filename": "travel.json",
         "name": "travel",
         "path": "travel",
-        "thumbnail": null
+        "thumbnail": "https://via.placeholder.com/400"
     }
 }
