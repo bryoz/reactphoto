@@ -1,32 +1,49 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import data from "../../data/index.json";
+import styles from "./Navigation.module.scss";
 
 class Navigation extends Component {
     render() {
 
-        const active = {
-            fontWeight: "bold",
-            color: "pink"
-        }
-
         const pages = Object.values(data);
 
         return (
-            <ul>
-                <li>
-                    <NavLink activeStyle={active} exact to="/">
-                        Home
-                    </NavLink>
-                </li>
-                {pages.map((page) =>(
-                    <li key={page.name}>
-                        <NavLink activeStyle={active} to={`/${page.path}`}>
-                            {page.name}
+            <nav className={styles.wrapper}>
+                <ul className={styles.list}>
+                    <li className={styles.item}>
+                        <NavLink
+                            className={styles.link}
+                            activeClassName={styles.active}
+                            exact to="/"
+                        >
+                            Works
                         </NavLink>
                     </li>
-                ))}
-            </ul>
+                    {pages.map((page) =>(
+                        <li className={styles.item} key={page.name}>
+                            <NavLink
+                                className={styles.link}
+                                activeClassName={styles.active}
+                                exact
+                                to={`/${page.path}`}
+                            >
+                                {page.name}
+                            </NavLink>
+                        </li>
+                    ))}
+                    <li className={styles.item}>
+                        <NavLink
+                            className={styles.link}
+                            activeClassName={styles.active}
+                            exact
+                            to="/about"
+                        >
+                            About
+                        </NavLink>
+                    </li>
+                </ul>
+            </nav>
         );
     }
 }

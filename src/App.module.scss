@@ -1,0 +1,14 @@
+@import "styles/styles";
+
+.wrapper {
+    margin: 0 0.655rem;
+
+    @include breakpoint($small-up) {
+        margin: 0 1.25rem;
+    }
+
+    @include breakpoint($medium-up) {
+        max-width: 1024px;
+        margin: 0 auto;
+    }
+}

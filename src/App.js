@@ -1,13 +1,19 @@
 import React from "react";
 import {
     BrowserRouter as Router,
-    Switch
+    Switch,
+    Route
 } from "react-router-dom";
 import { Helmet } from "react-helmet";
-import Navigation from "./components/navigation/Navigation";
 import siteNav from "./data/index.json";
 import RouteCustom from "./components/route/RouteCustom";
 import Page from "./components/page/Page";
+import Cursor from "./components/cursor/Cursor";
+import Header from "./components/header/Header";
+import Footer from "./components/footer/Footer";
+import About from "./views/about/About";
+
+import styles from "./App.module.scss";
 
 export default function App() {
 
@@ -17,24 +23,31 @@ export default function App() {
         <Router>
             <Helmet>
                 <meta charSet="utf-8" />
-                <title>Photography</title>
-                <link rel="canonical" href="https://bryphoto.co.uk" />
+                <title>ReactPhoto</title>
+                <link rel="canonical" href="" />
             </Helmet>
-            <div className="App">
-                <Navigation />
-
-                <p>Junk n' other stuff</p>
-                <Switch>
-                    {pages.map(page => 
-                        <RouteCustom 
-                            filename={page.filename} 
-                            key={page.path} 
-                            path={`/${page.path}`}
-                            component={Page}
-                        /> 
-                    )}
-                </Switch>
+            <div className={styles.app}>
+                <Cursor />
+                <Header />
+                <article className={styles.wrapper}>
+                    <Switch>
+                        <Route
+                            key="about" 
+                            path="/about"
+                            component={About}
+                        />
+                        {pages.map(page => 
+                            <RouteCustom 
+                                filename={page.filename} 
+                                key={page.path} 
+                                path={`/${page.path}`}
+                                component={Page}
+                            />
+                        )}
+                    </Switch>
+                </article>
             </div>
+            <Footer />
         </Router>
 	);
 }

@@ -5,6 +5,9 @@ import { Switch, Link } from "react-router-dom";
 import RouteCustom from "../route/RouteCustom";
 import Gallery from "react-photo-gallery";
 import Thumbnail from "../thumbnail/Thumbnail";
+import Heading from "../heading/Heading";
+
+import styles from "./Page.module.scss";
 
 const PageTypes = {
     "folder": "folder",
@@ -22,16 +25,26 @@ export default class Page extends React.PureComponent {
         return columns;
     }
 
-    image = ({key, photo, index, left, top, margin}) => (
-        <Thumbnail
-            key={key}
-            photo={photo}
-            index={index}
-            left={left}
-            top={top}
-            margin={margin}
-        />
+    thumbnail = ({key, photo, index, left, top, margin}) => (
+        <a href={photo.src} key={key}>
+            <Thumbnail
+                photo={photo}
+                index={index}
+                left={left}
+                top={top}
+                margin={margin}
+            />
+        </a>
     );
+
+    renderImage = ({src, title}) => {
+        return (
+            <img
+                src={src}
+                alt={title}
+            />
+        );
+    }
 
     get pageType () {
         return this.props.data
@@ -48,12 +61,25 @@ export default class Page extends React.PureComponent {
             height: (photo.meta.height / photo.meta.width),
         }));
 
-        return <Gallery direction="column" photos={photos} columns={this.columns} renderImage={this.image} />;
+        return (
+            <React.Fragment>
+                <p>Breadcrumb / To / Path</p>
+                <Heading tag="h2">Gallery name</Heading>
+                <Gallery 
+                    direction="column" 
+                    photos={photos} 
+                    columns={this.columns} 
+                    renderImage={this.thumbnail}
+                    margin={10}
+                />
+            </React.Fragment>
+        );
     }
 
     renderSubfolder = () => {
         return ( 
             <React.Fragment>
+                <p>Breadcrumb / To </p>
                 {map(this.props.data.children, (c) => 
                     <Link to={`/${c.path}`} key={c.path}>
                         {c.name}
@@ -102,9 +128,9 @@ export default class Page extends React.PureComponent {
             
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>{this.props.data.name} | Photography</title>
+                    <title>{this.props.data.name} | ReactPhoto</title>
                 </Helmet>
-
+                
                 {this.renderPage()}
 
             </React.Fragment>

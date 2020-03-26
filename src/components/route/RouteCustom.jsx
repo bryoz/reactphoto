@@ -21,7 +21,7 @@ export default class RouteCustom extends React.PureComponent {
                 .then(data => this.setState({
                     data
                 }));
-       } 
+       }
     }
 
     render() {

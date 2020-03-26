@@ -1,0 +1,12 @@
+@import '../../styles/mixins';
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.625rem;
+
+    @include breakpoint($small-up) {
+        margin: 1.25rem;
+    }
+}

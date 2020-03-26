@@ -15,7 +15,8 @@ const Thumbnail = ({
 }) => {
 
     return (
-        <div
+        <img
+            {...photo}
             style={{ 
                 margin,
                 top: top,
@@ -24,13 +25,8 @@ const Thumbnail = ({
                 width: photo.width,
                 ...cont
             }}
-        >
-            {/* TODO: Add routing to this component with using photo.src */}
-            <img
-                {...photo}
-                alt={photo.title}
-            />
-        </div>
+            alt={photo.alt}
+        />
     );
 };
 

@@ -1,0 +1,13 @@
+@import "../../styles/mixins";
+
+.list {
+    @include flexList;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+}
+
+.item {
+    &:not(:first-child) {
+        margin-left: 1.25rem;
+    }
+}
