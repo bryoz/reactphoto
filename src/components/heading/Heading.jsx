@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./Heading.module.scss"
-import classNames from "classnames/bind";
+import styles from './Heading.module.scss'
+import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 

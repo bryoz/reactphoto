@@ -1,9 +1,9 @@
-import React from "react";
-import { map } from "underscore";
-import classNames from "classnames/bind"; 
-import Heading from "../heading/Heading"; 
+import React from 'react';
+import { map } from 'underscore';
+import classNames from 'classnames/bind'; 
+import Heading from '../heading/Heading'; 
 
-import styles from "./Social.module.scss";
+import styles from './Social.module.scss';
 const cx = classNames.bind(styles); 
 
 export default class Social extends React.PureComponent {

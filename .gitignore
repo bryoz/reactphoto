@@ -5,6 +5,8 @@
 /photography
 /.pnp
 .pnp.js
+/src/data
+/src/media
 
 # testing
 /coverage

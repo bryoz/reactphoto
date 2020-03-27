@@ -1,8 +1,8 @@
-import React from "react";
-import Navigation from "../navigation/Navigation";
-import Heading from "../heading/Heading";
+import React from 'react';
+import Navigation from '../navigation/Navigation';
+import Heading from '../heading/Heading';
 
-import styles from "./Header.module.scss"
+import styles from './Header.module.scss'
 
 export default class Header extends React.PureComponent {
 

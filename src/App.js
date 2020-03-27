@@ -1,23 +1,24 @@
-import React from "react";
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route
-} from "react-router-dom";
-import { Helmet } from "react-helmet";
-import siteNav from "./data/index.json";
-import RouteCustom from "./components/route/RouteCustom";
-import Page from "./components/page/Page";
-import Cursor from "./components/cursor/Cursor";
-import Header from "./components/header/Header";
-import Footer from "./components/footer/Footer";
-import About from "./views/about/About";
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
-import styles from "./App.module.scss";
+// Components
+import Cursor from './components/cursor/Cursor';
+import Header from './components/header/Header';
+import Footer from './components/footer/Footer';
+import About from './views/about/About';
+
+// Helpers
+import { createRoutes } from './helpers/router';
+
+// Resources
+import siteNav from './data/data.json';
+import styles from './App.module.scss';
 
 export default function App() {
 
     const pages = Object.values(siteNav);
+    const routes = createRoutes(pages);
 
     return (
         <Router>
@@ -36,14 +37,7 @@ export default function App() {
                             path="/about"
                             component={About}
                         />
-                        {pages.map(page => 
-                            <RouteCustom 
-                                filename={page.filename} 
-                                key={page.path} 
-                                path={`/${page.path}`}
-                                component={Page}
-                            />
-                        )}
+                        {routes}
                     </Switch>
                 </article>
             </div>
