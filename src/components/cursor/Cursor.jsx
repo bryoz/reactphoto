@@ -1,8 +1,8 @@
-import React from "react";
-// import TweenMax from "gsap/TweenMax";
+import React from 'react';
+// import TweenMax from 'gsap/TweenMax';
 
-import styles from "./Cursor.module.scss"
-import classNames from "classnames/bind";
+import styles from './Cursor.module.scss'
+import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
@@ -16,19 +16,21 @@ class Cursor extends React.Component {
         };
     }
 
-    componentDidMount() {
-        window.addEventListener("mousemove", e => {
-            this.setState(() => {
-                return {
-                    x: e.clientX,
-                    y: e.clientY
-                }
-            });
+    onMouseMove = e => {
+        this.setState(() => {
+            return {
+                x: e.clientX,
+                y: e.clientY
+            }
         });
     }
 
+    componentDidMount() {
+        window.addEventListener('mousemove', this.onMouseMove);
+    }
+
     componentWillUnmount() {
-        window.removeEventListener("mousemove");
+        window.removeEventListener('mousemove', this.onMouseMove);
     }
 
     render() {

@@ -1,149 +1,71 @@
-// Create json file to map folder/file structure of site
-// Create json file to create navigation based on content
-// Process images to be optimised for web and this application
-
-// Import requirements
-const fs = require("fs");
-const path = require("path");
-const sharp = require("sharp");
+const path = require('path');
+const fs = require('fs');
+const fsExtra = require('fs-extra');
+const { PageType } = require('../src/constants/Page');
+const { getSharpMeta, scanDirectory, parseFileInfo, getThumbnail } = require('./setupUtils.js');
 
 
-// Image directory setup
-// Name of image folder, in root (can be updated if required eg. artwork)
-const imgFolder = "photography";
+// Source directory to scan
+const imgSrc = path.resolve(__dirname, process.argv[2] || '../photography');
 
-// Relative path to image folder from this script
-const dir = "../" + imgFolder;
-// Absolute path to project root
-const projectRoot = path.resolve(process.cwd(), "..");
-// Absolute path to image folder
-const imgRoot = path.resolve(projectRoot, imgFolder);
+// Output directories
+const dataOut = path.resolve(__dirname, process.argv[3] || '../src/data');
+const imgOut = path.resolve(__dirname, process.argv[4] || '../src/media');
 
 
-// Function to create relative paths
-const relPath = function(pathOne, pathTwo) {
-    return path.relative(pathOne, pathTwo);
-};
-
-    //     console.log("Updated files.json with latest data")
-    async function asyncForEach(array, callback) {
-        for (let index = 0; index < array.length; index++) {
-          await callback(array[index], index, array);
-        }
-      }
-
-// Calculate the image orientation
-const orientation = function(w, h) {
-    if(w - h > 0) {
-        return "landscape";
-    } if(w - h < 0) {
-        return "portrait";
-    } if(w - h === 0) {
-        return "square";
-    } else {
-        return null;
-    }
-};
-
-// Get the image metadata using sharp
-const sharpMeta = async function(img) {
-    const image = sharp(img);
-    const meta = await image.metadata();
-    return {
-        format: meta.format,
-        width: meta.width,
-        height: meta.height,
-        orientation: orientation(meta.width, meta.height)
-    };
-};
+// Files to post-process
+const filesToCopy = [];
 
 
-// Read image folder directory contents and create an object
-const dirToObj = function(dir, done) {
-    var results = [];
+// File Processor
+// Checks every entry in our src dir, if it's an image file builds meta, othewise keeps scanning
+const processFile = async (file) => {
 
-    fs.readdir(dir, function(err, list) {
-        if (err) {
-            return done(err);
-        }
+    const fileInfo = parseFileInfo(file, imgSrc);
+    const isDirectory = fs.statSync(file).isDirectory();
 
-        var pending = list.length;
-
-        if (!pending) {
-            return done(null);
-        }
-
-        list.forEach(async function (file) {
-
-        file = path.resolve(dir, file);
-
-        const stat = await fs.promises.stat(file);
-
-            if (stat && stat.isDirectory()) {
-
-                dirToObj(file, function(err, res) {
-                    results.push({
-                        name: path.basename(file),
-                        type: "folder",
-                        isPage: true,
-                        path: relPath(imgRoot, file),
-                        children: res
-                    });
-                    if (!--pending) {
-                        done(null, results);
-                    }
-                });
-
-            }
-            else {
-
-                var ext = path.extname(file);
-
-                // Only return jpg images
-                if (ext === ".jpg") {
-                    results.push({
-                        type: "image",
-                        name: path.parse(file).name,
-                        path: relPath(imgRoot, path.parse(file).dir),
-                        src: relPath(imgRoot, file),
-                        meta: await sharpMeta(file)
-                    });
-                }
-
-                if (!--pending) {
-                    done(null, results);
-                }
-            }
+    if (!isDirectory) {
+        filesToCopy.push({
+            src: fileInfo.originalPath,
+            dst: path.join(imgOut, fileInfo.src),
         });
-    });
+    }
+
+    return isDirectory 
+        ? {
+            type: PageType.Folder,
+            name: fileInfo.name,
+            slug: fileInfo.slug,
+            children: await scanDirectory(file, processFile),
+            thumbnail: await getThumbnail(file),
+        }
+        : {
+            type: PageType.Image,
+            name: fileInfo.name,
+            slug: fileInfo.slug,
+            src: fileInfo.src,
+            meta: await getSharpMeta(file)
+        };
 };
 
 
-// Push all object data to single json file/object
-dirToObj(dir, async function(err, res){
-    if(err)
-        console.error(err);
+// Do our work - Scan our img src directory
+// pass in our custom function that processes each result
+scanDirectory(imgSrc, processFile)
+    .then(async result => {
 
-    const overview = {};
+        // remove any existing files in the our dir & write our new file
+        await fsExtra.emptydir(dataOut);
+        await fs.promises.writeFile(
+            path.resolve(dataOut, 'data.json'),
+            JSON.stringify(result, null, 4),
+        );
 
-    //for each gallery
-    await asyncForEach(res, async entry => {
-        await fs.promises.writeFile(`../src/data/${entry.name}.json`, JSON.stringify(entry, null, 4), "utf-8");
-        overview[entry.name] = {
-            filename: `${entry.name}.json`,
-            name: entry.name,
-            path: entry.path,
-            thumbnail: null, //TODO: Add thumbnails for each page
-        };
-    })
-    await fs.promises.writeFile("../src/data/index.json", JSON.stringify(overview, null, 4), "utf-8");
+        // if we have any images to copy, empty the image dir and copy them across
+        // We could also apply post-processing at the same time
+        if (filesToCopy.length > 0) {
 
-    // const overview = {};
-    console.log("Updated files.json with latest data")
-
-    
-    // fs.writeFile("../src/data/files.json", JSON.stringify(res, null, 4), "utf-8", function(err) {
-    //     if (err) throw err
-    //     console.log("Updated files.json with latest data")
-    // })
-});
+            await fsExtra.emptyDir(imgOut);
+            filesToCopy.forEach(f => fsExtra.copySync(f.src, f.dst));
+        }
+    });

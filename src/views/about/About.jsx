@@ -1,10 +1,10 @@
-import React from "react";
-import { Helmet } from "react-helmet";
-import Heading from "../../components/heading/Heading";
-import Gear from "../../components/gear/Gear";
-import Social from "../../components/social/Social";
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import Heading from '../../components/heading/Heading';
+import Gear from '../../components/gear/Gear';
+import Social from '../../components/social/Social';
 
-import styles from "./About.module.scss";
+import styles from './About.module.scss';
 
 let social = [
     {

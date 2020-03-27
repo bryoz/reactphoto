@@ -1,8 +1,8 @@
-import React from "react";
-import { map } from "underscore";
-import Gallery from "react-photo-gallery";
-import Thumbnail from "../thumbnail/Thumbnail";
-import Heading from "../heading/Heading";
+import React from 'react';
+import { map } from 'underscore';
+import Gallery from 'react-photo-gallery';
+import Thumbnail from '../thumbnail/Thumbnail';
+import Heading from '../heading/Heading';
 
 export default class Gear extends React.PureComponent {
 

@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
-import data from "../../data/index.json";
-import styles from "./Navigation.module.scss";
+import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
+import data from '../../data/data.json';
+import styles from './Navigation.module.scss';
 
 class Navigation extends Component {
     render() {
@@ -26,7 +26,7 @@ class Navigation extends Component {
                                 className={styles.link}
                                 activeClassName={styles.active}
                                 exact
-                                to={`/${page.path}`}
+                                to={page.slug}
                             >
                                 {page.name}
                             </NavLink>

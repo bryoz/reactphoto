@@ -20,7 +20,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "babel-node": "babel-node --presets @babel/preset-env",
+    "setup": "npm run babel-node -- scripts/setup.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -38,6 +40,10 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.0",
+    "fs-extra": "^9.0.0",
     "node-sass": "^4.13.1"
   }
 }
