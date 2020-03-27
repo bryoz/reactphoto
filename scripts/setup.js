@@ -18,7 +18,7 @@ const filesToCopy = [];
 
 
 // File Processor
-// Checks every entry in our src dir, if it's an image file builds meta, othewise keeps scanning
+// Checks every entry in our src dir, if it's an image file builds meta, otherwise keeps scanning
 const processFile = async (file) => {
 
     const fileInfo = parseFileInfo(file, imgSrc);
