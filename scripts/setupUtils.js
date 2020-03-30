@@ -2,14 +2,41 @@ const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
 const { Orientation } = require('../src/constants/Image');
+const { PageType } = require('../src/constants/Page');
+
+const ImageFormats = {
+    '.jpg': 'Jpeg',
+    '.jpeg': 'Jpeg',
+    '.png': 'Png',
+    '.gif': 'Gif',
+};
+
+const TextFormats = {
+    '.txt': 'Text',
+    '.md': 'Markdown',
+    '.html': 'Html',
+};
+
+const getFileType = extension => {
+    return ImageFormats[extension] 
+        ? PageType.Image
+        : TextFormats[extension]
+            ? PageType.Text
+            : null;
+};
 
 const parseFileInfo = (filePath, srcDir = '') => {
-    const data = path.parse(filePath);
     const re = RegExp(`\\${path.sep}`, 'g');
+    const data = path.parse(filePath);
+    const stat = fs.statSync(filePath);
+
+    const isDirectory = stat.isDirectory();
+    const fileType = isDirectory ? PageType.Folder : getFileType(data.ext);
 
     return {
         originalPath: filePath,
         name: data.name,
+        type: fileType,
         src: (
             filePath
                 .replace(srcDir, '')
@@ -56,7 +83,10 @@ const scanDirectory = function(dir, processFile) {
     return fs.promises
         .readdir(dir)
         .then(files => files.map(file => path.resolve(dir, file)))
-        .then(files => files.map(processFile))
+        .then(files => files.reduce((agg, file) => {
+            const data = processFile(file);
+            return data ? [ ...agg, data ] : agg;
+        }, []))
         .then(promises => Promise.all(promises));
 };
 
