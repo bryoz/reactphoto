@@ -23,7 +23,7 @@ const processFile = async (file) => {
 
     const fileInfo = parseFileInfo(file, imgSrc);
 
-    if (!fileInfo.type === PageType.Image) {
+    if (fileInfo.type === PageType.Image) {
         filesToCopy.push({
             src: fileInfo.originalPath,
             dst: path.join(imgOut, fileInfo.src),
