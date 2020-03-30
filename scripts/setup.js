@@ -22,30 +22,40 @@ const filesToCopy = [];
 const processFile = async (file) => {
 
     const fileInfo = parseFileInfo(file, imgSrc);
-    const isDirectory = fs.statSync(file).isDirectory();
 
-    if (!isDirectory) {
+    if (fileInfo.type === PageType.Image) {
         filesToCopy.push({
             src: fileInfo.originalPath,
             dst: path.join(imgOut, fileInfo.src),
         });
     }
 
-    return isDirectory 
-        ? {
-            type: PageType.Folder,
-            name: fileInfo.name,
-            slug: fileInfo.slug,
-            children: await scanDirectory(file, processFile),
-            thumbnail: await getThumbnail(file),
+    switch (fileInfo.type) {
+
+        case PageType.Image: {
+            return {
+                type: fileInfo.type,
+                name: fileInfo.name,
+                slug: fileInfo.slug,
+                src: fileInfo.src,
+                meta: await getSharpMeta(file)
+            };
         }
-        : {
-            type: PageType.Image,
-            name: fileInfo.name,
-            slug: fileInfo.slug,
-            src: fileInfo.src,
-            meta: await getSharpMeta(file)
-        };
+
+        case PageType.Folder: {
+            return {
+                type: fileInfo.type,
+                name: fileInfo.name,
+                slug: fileInfo.slug,
+                thumbnail: await getThumbnail(file),
+                children: await scanDirectory(file, processFile),
+            };
+        }
+
+        default: {
+            return null;
+        }
+    }
 };
 
 
