@@ -34,7 +34,7 @@ const processFile = async (file) => {
 
         case PageType.Image: {
             return {
-                type: PageType.Image,
+                type: fileInfo.type,
                 name: fileInfo.name,
                 slug: fileInfo.slug,
                 src: fileInfo.src,
@@ -44,7 +44,7 @@ const processFile = async (file) => {
 
         case PageType.Folder: {
             return {
-                type: PageType.Folder,
+                type: fileInfo.type,
                 name: fileInfo.name,
                 slug: fileInfo.slug,
                 thumbnail: await getThumbnail(file),
