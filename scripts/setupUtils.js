@@ -83,11 +83,9 @@ const scanDirectory = function(dir, processFile) {
     return fs.promises
         .readdir(dir)
         .then(files => files.map(file => path.resolve(dir, file)))
-        .then(files => files.reduce((agg, file) => {
-            const data = processFile(file);
-            return data ? [ ...agg, data ] : agg;
-        }, []))
-        .then(promises => Promise.all(promises));
+        .then(files => files.map(processFile))
+        .then(promises => Promise.all(promises))
+        .then(results => results.filter(r => !!r));
 };
 
 module.exports = {
