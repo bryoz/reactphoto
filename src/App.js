@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 
 // Components
 import Cursor from './components/cursor/Cursor';
+import Breadcrumb from './components/breadcrumb/Breadcrumb';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import About from './views/about/About';
@@ -30,6 +31,7 @@ export default function App() {
             <div className={styles.app}>
                 <Cursor />
                 <Header />
+                <Breadcrumb />
                 <article className={styles.wrapper}>
                     <Switch>
                         <Route
