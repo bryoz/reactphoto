@@ -11,8 +11,6 @@ export default class Social extends React.PureComponent {
 
         // const social = Object.values(this.props.social);
 
-        console.log(this.props)
-
         return (
             <div className={styles.wrapper}>
                 <Heading tag="h3">{this.props.title}</Heading>

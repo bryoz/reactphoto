@@ -5,7 +5,7 @@
 /photography
 /.pnp
 .pnp.js
-/src/data
+/src/data/data.json
 /src/media
 
 # testing

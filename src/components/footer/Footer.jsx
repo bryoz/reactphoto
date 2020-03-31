@@ -1,8 +1,12 @@
 import React from 'react';
 
+import config from '../../data/config.json';
+
 export default class Footer extends React.PureComponent {
 
     render() {
+        const site = Object.values(config)[0];
+
         return (
             <footer
                 style={{
@@ -10,7 +14,7 @@ export default class Footer extends React.PureComponent {
                     textAlign: "center"
                 }}
             >
-                <p>&copy; ReactPhoto 2020 - all rights reserved</p>
+                <p><a href={site.url} target="_blank" rel="noopener noreferrer">{site.title}</a> - by {site.author}</p>
                 <ul
                     style={{
                         display: "flex",
