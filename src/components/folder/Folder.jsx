@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 export default function Folder(props) {
     return (
         <React.Fragment>
-            <p>Breadcrumb / To </p>
 
             {map(props.data.children, c => (
                 <React.Fragment key={c.slug}>

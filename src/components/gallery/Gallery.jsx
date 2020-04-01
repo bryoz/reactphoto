@@ -40,7 +40,6 @@ export default function PhotoGallery (props) {
     return (
         <React.Fragment>
 
-            <p>Breadcrumb / To / Path</p>
             <Heading tag="h2">{props.data.name}</Heading>
 
             <div className={styles.wrapper}>
