@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 // Components
+import Breadcrumb from './components/breadcrumb/Breadcrumb';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import About from './views/about/About';
@@ -30,6 +31,7 @@ export default function App() {
             </Helmet>
             <div className={styles.app}>
                 <Header />
+                <Breadcrumb />
                 <article className={styles.wrapper}>
                     <Switch>
                         <Route
