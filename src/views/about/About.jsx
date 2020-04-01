@@ -4,6 +4,7 @@ import Heading from '../../components/heading/Heading';
 import Gear from '../../components/gear/Gear';
 import Social from '../../components/social/Social';
 
+import config from '../../data/config.json';
 import styles from './About.module.scss';
 
 let social = [
@@ -36,16 +37,18 @@ let gear = [
 export default class About extends React.PureComponent {
 
     render() {
+        const site = Object.values(config)[0];
+
         return (
             <React.Fragment>
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>About ReactPhoto</title>
+                    <title>About {site.title}</title>
                     <link rel="canonical" href="" />
                 </Helmet>
 
                 <div className={styles.wrapper}>
-                    <Heading tag="h2">About ReactPhoto</Heading>
+                    <Heading tag="h2">About {site.title}</Heading>
                     <img className={styles.portrait} src="https://via.placeholder.com/1024x500?text=Your+face" alt="" />
                     <p>blep</p>
 
