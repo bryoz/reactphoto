@@ -1,11 +1,14 @@
 import React from 'react';
 
+import styles from './Thumbnail.module.scss';
+
 const cont = {
     backgroundColor: "#eee",
     // cursor: "pointer",
     overflow: "hidden",
     position: "absolute"
 };
+
 
 const Thumbnail = ({
     photo,
@@ -16,6 +19,7 @@ const Thumbnail = ({
 
     return (
         <img
+            className={styles.image}
             {...photo}
             style={{ 
                 margin,

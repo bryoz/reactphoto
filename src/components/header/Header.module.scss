@@ -4,9 +4,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0.625rem;
+    margin: 0 0.625rem;
+    max-width: $max-width;
 
-    @include breakpoint($small-up) {
-        margin: 1.25rem;
+    @include breakpoint($medium-up) {
+        margin: 0 auto;
+        padding: 0 2.5rem;
     }
 }

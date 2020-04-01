@@ -1,0 +1,12 @@
+@import "../../styles/mixins";
+
+.wrapper {
+    margin: -5px -5px 0;
+    width: calc(100% + 10px);
+
+    @include breakpoint($medium-up) {
+        margin: -10px -10px 0;
+        width: calc(100% + 20px);
+    }
+}
+

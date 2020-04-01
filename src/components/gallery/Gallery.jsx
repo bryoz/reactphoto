@@ -1,16 +1,12 @@
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 import Gallery from 'react-photo-gallery';
 import Heading from '../heading/Heading';
 import Thumbnail from '../thumbnail/Thumbnail';
 import { Link } from 'react-router-dom';
 
-const columns = (containerWidth) => {
-    let columns = 1;
-    if (containerWidth >= 500) columns = 2;
-    if (containerWidth >= 900) columns = 3;
-    if (containerWidth >= 1500) columns = 4;
-    return columns;
-};
+import styles from './Gallery.module.scss';
+
 
 const thumbnail = (props) => {
     return (
@@ -27,6 +23,11 @@ const thumbnail = (props) => {
 };
 
 export default function PhotoGallery (props) {
+    const isWideLayout = useMediaQuery({
+        query: '(min-width: 768px)'
+    })
+
+    console.log(isWideLayout)
 
     const photos = props.data.children.map(photo => ({
         key: photo.name,
@@ -42,13 +43,15 @@ export default function PhotoGallery (props) {
             <p>Breadcrumb / To / Path</p>
             <Heading tag="h2">{props.data.name}</Heading>
 
-            <Gallery 
-                direction="column" 
-                photos={photos} 
-                columns={columns} 
-                renderImage={thumbnail} 
-                margin={10} 
-            />
+            <div className={styles.wrapper}>
+                <Gallery 
+                    direction="column" 
+                    photos={photos} 
+                    columns={isWideLayout ? 3 : 2} 
+                    renderImage={thumbnail} 
+                    margin={isWideLayout ? 10 : 5}
+                />
+            </div>
 
         </React.Fragment>
     );

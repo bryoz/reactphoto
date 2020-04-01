@@ -25,7 +25,7 @@ class Navigation extends Component {
                             <NavLink
                                 className={styles.link}
                                 activeClassName={styles.active}
-                                exact
+                                strict
                                 to={page.slug}
                             >
                                 {page.name}
