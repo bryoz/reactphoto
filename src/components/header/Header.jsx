@@ -1,21 +1,33 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import Navigation from '../navigation/Navigation';
 import Heading from '../heading/Heading';
-
 import config from '../../data/config.json';
 import styles from './Header.module.scss';
+import classNames from 'classnames/bind';
 
-export default class Header extends React.PureComponent {
+const cx = classNames.bind(styles);
 
-    render() {
-        const site = Object.values(config)[0];
+export default function Header() {
+    const site = Object.values(config)[0];
+    const location = useLocation();
+    const isHome = location.pathname === "/";
 
-        //TODO: Give this a different class when it's the Home page
-        return (
-            <header className={styles.wrapper}>
-                <Heading tag="h1">{site.title}</Heading>
-                <Navigation />
-            </header>
-        );
-    }
+    return (
+        <header className={cx("wrapper", {isHome: isHome})}>
+            <div className={styles.header}>
+                <Heading
+                    className={styles.title} 
+                    tag="h1"
+                >
+                    {site.title}
+                </Heading>
+                {isHome &&
+                    <p className={styles.description}>{site.subtitle}</p>
+                }
+            </div>
+
+            <Navigation />
+        </header>
+    );
 }

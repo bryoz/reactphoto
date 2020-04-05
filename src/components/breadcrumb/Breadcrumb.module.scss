@@ -1,0 +1,10 @@
+@import "../../styles/mixins";
+
+.link {
+    text-transform: uppercase;
+    text-decoration: none;
+
+    &:not(:first-child):before {
+        content: '/';
+    }
+}

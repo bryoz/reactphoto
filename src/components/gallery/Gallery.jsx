@@ -1,6 +1,7 @@
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 import Gallery from 'react-photo-gallery';
+import Breadcrumb from '../breadcrumb/Breadcrumb';
 import Heading from '../heading/Heading';
 import Thumbnail from '../thumbnail/Thumbnail';
 import { Link } from 'react-router-dom';
@@ -27,8 +28,6 @@ export default function PhotoGallery (props) {
         query: '(min-width: 768px)'
     })
 
-    console.log(isWideLayout)
-
     const photos = props.data.children.map(photo => ({
         key: photo.name,
         src: require('../../media' + photo.src),
@@ -38,11 +37,13 @@ export default function PhotoGallery (props) {
     }));
 
     return (
-        <React.Fragment>
-
-            <Heading tag="h2">{props.data.name}</Heading>
-
-            <div className={styles.wrapper}>
+        <div className={styles.wrapper}>
+            <div className={styles.header}>
+                <Breadcrumb />
+                <Heading tag="h2">{props.data.name}</Heading>
+            </div>
+            
+            <div className={styles.content}>
                 <Gallery 
                     direction="column" 
                     photos={photos} 
@@ -51,7 +52,6 @@ export default function PhotoGallery (props) {
                     margin={isWideLayout ? 10 : 5}
                 />
             </div>
-
-        </React.Fragment>
+        </div>
     );
 }

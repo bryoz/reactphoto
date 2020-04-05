@@ -1,15 +1,37 @@
 @import "../../styles/mixins";
 
+.wrapper {
+    align-self: flex-start;
+}
+
+ul {
+
+}
+
 .list {
-    display: flex;
-    justify-content: flex-end;
     list-style: none;
     margin: 0;
     padding: 0;
     text-transform: uppercase;
 
-    > *:not(:first-child) {
-        margin-left: 10px;
+    @include breakpoint(max-width 900px) {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba($c-white, 0.8);
+    }
+
+    @include breakpoint(901px) {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: 80px;
+
+        > *:not(:first-child) {
+            margin-left: 40px;
+        }
     }
 
     a {

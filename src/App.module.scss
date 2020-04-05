@@ -1,11 +1,22 @@
 @import "styles/styles";
 
-.wrapper {
-    margin: 0 0.655rem;
-    max-width: $max-width;
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
+.page {
+    flex-grow: 1;
+}
+
+.wrapper {
+    margin: 0 10px;
+    max-width: calc(100% - 20px);
+    
     @include breakpoint($medium-up) {
         margin: 0 auto;
-        padding: 0 2.5rem;
+        padding: 0 50px;
+        max-width: $max-width;
     }
 }

@@ -10,7 +10,8 @@ export default class Heading extends React.PureComponent {
     render() {
         const Tag = this.props.tag ? this.props.tag : "h6"
         const classes = cx(
-            this.props.extraClasses
+            "title",
+            this.props.className
         );
 
         return (

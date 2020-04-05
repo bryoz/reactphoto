@@ -1,7 +1,25 @@
 [
     {
         "title": "ReactPhoto",
+        "subtitle": "Portfolio site",
         "author": "Bryan McDowall & Finn Scott",
-        "url": "https://github.com/bryoz/reactphoto"
+        "url": "https://github.com/bryoz/reactphoto",
+        "social": [
+            {
+                "name": "twitter",
+                "title": "Twitter",
+                "url": "https://twitter.com/bryoz"
+            },
+            {
+                "name": "instagram",
+                "title": "Instagram",
+                "url": "https://twitter.com/bryoz"
+            },
+            {
+                "name": "linkedin",
+                "title": "LinkedIn",
+                "url": "https://twitter.com/bryoz"
+            }
+        ]
     }
 ]
