@@ -16,7 +16,6 @@ import config from './data/config.json';
 import styles from './App.module.scss';
 
 export default function App() {
-
     const site = Object.values(config)[0];
     const pages = Object.values(siteNav);
     const routes = createRoutes(pages);

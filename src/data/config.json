@@ -6,19 +6,28 @@
         "url": "https://github.com/bryoz/reactphoto",
         "social": [
             {
-                "name": "twitter",
-                "title": "Twitter",
-                "url": "https://twitter.com/bryoz"
-            },
-            {
-                "name": "instagram",
-                "title": "Instagram",
-                "url": "https://twitter.com/bryoz"
+                "name": "github",
+                "title": "GitHub",
+                "url": "https://github.com/bryoz/reactphoto",
+                "icon": "github"
             },
             {
                 "name": "linkedin",
                 "title": "LinkedIn",
-                "url": "https://twitter.com/bryoz"
+                "url": "https://linkedin.com/in/bryoz",
+                "icon": "linkedin"
+            },
+            {
+                "name": "twitter",
+                "title": "Twitter",
+                "url": "https://twitter.com/bryoz",
+                "icon": "twitter"
+            },
+            {
+                "name": "instagram",
+                "title": "Instagram",
+                "url": "https://www.instagram.com/bryanmcdowall/",
+                "icon": "instagram"
             }
         ]
     }
