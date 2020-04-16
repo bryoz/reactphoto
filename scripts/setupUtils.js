@@ -3,6 +3,7 @@ const path = require('path');
 const sharp = require('sharp');
 const { Orientation } = require('../src/constants/Image');
 const { PageType } = require('../src/constants/Page');
+const { v4 } = require('uuid');
 
 const ImageFormats = {
     '.jpg': 'Jpeg',
@@ -34,6 +35,7 @@ const parseFileInfo = (filePath, srcDir = '') => {
     const fileType = isDirectory ? PageType.Folder : getFileType(data.ext);
 
     return {
+        uuid: v4(),
         originalPath: filePath,
         name: data.name,
         type: fileType,
@@ -50,6 +52,16 @@ const parseFileInfo = (filePath, srcDir = '') => {
         ),
     };
 };
+
+const getFileCreatedDate = (path) => {
+    const stats = fs.statSync(path)
+    return stats.birthtime
+}
+
+const getFileUpdatedDate = (path) => {
+    const stats = fs.statSync(path)
+    return stats.mtime
+}
 
 const getOrientation = (w, h) => {
     if(w > h) {
@@ -70,7 +82,9 @@ const getSharpMeta = async img => {
         format: meta.format,
         width: meta.width,
         height: meta.height,
-        orientation: getOrientation(meta.width, meta.height)
+        orientation: getOrientation(meta.width, meta.height),
+        created: getFileCreatedDate(img),
+        updated: getFileUpdatedDate(img)
     };
 };
 
@@ -88,10 +102,19 @@ const scanDirectory = function(dir, processFile) {
         .then(results => results.filter(r => !!r));
 };
 
+const sortByDateModified = files => {
+    return files.sort((a, b) => {
+        return new Date(b.meta.updated) - new Date(a.meta.updated);
+    });
+};
+
 module.exports = {
+    getFileCreatedDate,
+    getFileUpdatedDate,
     getOrientation,
     getSharpMeta,
     scanDirectory,
     parseFileInfo,
     getThumbnail,
+    sortByDateModified,
 };

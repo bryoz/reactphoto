@@ -4,10 +4,10 @@ import Gallery from 'react-photo-gallery';
 import Breadcrumb from '../breadcrumb/Breadcrumb';
 import Heading from '../heading/Heading';
 import Thumbnail from '../thumbnail/Thumbnail';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { getPhotoById, getFileByPath } from '../../helpers/photos';
 
 import styles from './Gallery.module.scss';
-
 
 const thumbnail = (props) => {
     return (
@@ -28,20 +28,28 @@ export default function PhotoGallery (props) {
         query: '(min-width: 768px)'
     })
 
-    const photos = props.data.children.map(photo => ({
-        key: photo.name,
-        src: require('../../media' + photo.src),
-        width: 1,
-        height: photo.meta.height / photo.meta.width,
-        slug: photo.slug,
-    }));
+    const location = useLocation();
+    const isHome = location.pathname === "/";
+
+    const photos = props.data.children
+        .map(photo => getPhotoById(photo.id))
+        .map(photo => ({
+            key: photo.name,
+            src: getFileByPath(photo.src),
+            width: 1,
+            height: photo.meta.height / photo.meta.width,
+            slug: photo.slug,
+        }));
 
     return (
         <div className={styles.wrapper}>
-            <div className={styles.header}>
-                <Breadcrumb />
-                <Heading tag="h2">{props.data.name}</Heading>
-            </div>
+
+            {!isHome &&
+                <div className={styles.header}>
+                    <Breadcrumb />
+                    <Heading tag="h2">{props.data.name}</Heading>
+                </div>
+            }
             
             <div className={styles.content}>
                 <Gallery 

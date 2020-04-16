@@ -1,6 +1,7 @@
 @import "../../styles/mixins";
 
 .header {
+    position: relative;
     @include pageHeader;
 }
 

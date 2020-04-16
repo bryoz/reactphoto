@@ -3,19 +3,17 @@ import { Helmet } from 'react-helmet';
 import Heading from '../../components/heading/Heading';
 import Social from '../../components/social/Social';
 
-import config from '../../data/config.json';
+import { config } from '../../data';
 import styles from './About.module.scss';
 
 export default class About extends React.PureComponent {
 
     render() {
-        const site = Object.values(config)[0];
-
         return (
             <React.Fragment>
                 <Helmet>
                     <meta charSet="utf-8" />
-                    <title>About {site.title}</title>
+                    <title>About {config.title}</title>
                     <link rel="canonical" href="" />
                 </Helmet>
 
@@ -24,7 +22,7 @@ export default class About extends React.PureComponent {
                         <Heading 
                             tag="h2"
                         >
-                            About {site.title}
+                            About {config.title}
                         </Heading>
                     </div>
                     <img className={styles.portrait} src="https://via.placeholder.com/1024x500?text=Your+face" alt="" />

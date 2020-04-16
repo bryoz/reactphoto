@@ -7,15 +7,14 @@ import { fab } from '@fortawesome/free-brands-svg-icons';
 import Heading from '../heading/Heading'; 
 
 import styles from './Social.module.scss';
-import data from '../../data/config.json';
+import { config } from '../../data';
 const cx = classNames.bind(styles); 
 
 export default class Social extends React.PureComponent {
     render() {
         library.add(fab);
 
-        const site = Object.values(data)[0];
-        const social = site.social;
+        const social = config.social;
 
         return (
             <div className={styles.wrapper}>

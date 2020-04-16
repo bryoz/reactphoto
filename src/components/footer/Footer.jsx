@@ -1,25 +1,23 @@
 import React from 'react';
 
-import config from '../../data/config.json';
+import { config } from '../../data';
 
 import styles from './Footer.module.scss';
 
 export default class Footer extends React.PureComponent {
 
     render() {
-        const site = Object.values(config)[0];
-
         return (
             <footer className={styles.wrapper}>
                 <p>
                     <a 
-                        href={site.url} 
+                        href={config.url} 
                         target="_blank" 
                         rel="noopener noreferrer"
                     >
-                        {site.title}
+                        {config.title}
                     </a>
-                    {' '}- by {site.author}
+                    {' '}- by {config.author}
                 </p>
             </footer>
         );

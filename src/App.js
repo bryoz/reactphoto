@@ -6,25 +6,24 @@ import { Helmet } from 'react-helmet';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import About from './views/about/About';
+import Latest from './views/latest/Latest';
 
 // Helpers
 import { createRoutes } from './helpers/router';
 
 // Resources
-import siteNav from './data/data.json';
-import config from './data/config.json';
+import { photoPages, config } from './data';
 import styles from './App.module.scss';
 
 export default function App() {
-    const site = Object.values(config)[0];
-    const pages = Object.values(siteNav);
+    const pages = Object.values(photoPages);
     const routes = createRoutes(pages);
 
     return (
         <Router>
             <Helmet>
                 <meta charSet="utf-8" />
-                <title>{site.title}</title>
+                <title>{config.title}</title>
                 <link rel="canonical" href="" />
             </Helmet>
             <div className={styles.app}>
@@ -36,6 +35,12 @@ export default function App() {
                                 key="about" 
                                 path="/about"
                                 component={About}
+                            />
+                            <Route
+                                key="latest" 
+                                path="/"
+                                exact
+                                component={Latest}
                             />
                             {routes}
                         </Switch>

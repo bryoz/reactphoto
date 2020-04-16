@@ -1,5 +1,11 @@
 @import "../../styles/mixins";
 
+.wrapper {
+    position: absolute;
+    top: -100%;
+    width: 100%;
+}
+
 .link {
     text-transform: uppercase;
     text-decoration: none;

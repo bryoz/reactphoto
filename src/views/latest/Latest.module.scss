@@ -1,0 +1,9 @@
+@import "../../styles/mixins";
+
+.wrapper {
+    margin: 0 auto;
+}
+
+.header {
+    @include pageHeader;
+}

@@ -4,8 +4,46 @@
     align-self: flex-start;
 }
 
-ul {
+.content {
+    @include breakpoint(max-width 900px) {
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        background-color: rgba($c-white, 0.95);
+        display: none;
 
+        &.open {
+            display: block;
+        }
+    }
+}
+
+.menu {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 2;
+}
+
+.title {
+    transform: rotate(270deg);
+    transform-origin: 0 0;
+    margin: 0 14px;
+    height: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100vh;
+    text-align: center;
+    font-size: 18px;
+
+    @include breakpoint(901px) {
+        display: none;
+    }
 }
 
 .list {
@@ -15,12 +53,7 @@ ul {
     text-transform: uppercase;
 
     @include breakpoint(max-width 900px) {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba($c-white, 0.8);
+        padding: 90px 50px 150px;
     }
 
     @include breakpoint(901px) {
@@ -48,11 +81,13 @@ ul {
             transition: transform 250ms ease-in-out;
         }
 
-        &:hover {
-            color: rgba($c-link, 0.75);
+        @include breakpoint(901px) {
+            &:hover {
+                color: rgba($c-link, 0.75);
 
-            &:after {
-                transform: scaleX(1);
+                &:after {
+                    transform: scaleX(1);
+                }
             }
         }
     }
