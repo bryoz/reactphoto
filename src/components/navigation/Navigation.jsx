@@ -7,8 +7,6 @@ import NavigationMenu from '../navigation-menu/NavigationMenu';
 import { photoPages } from '../../data';
 
 import styles from './Navigation.module.scss';
-import classNames from 'classnames/bind';
-const cx = classNames.bind(styles);
 
 function Links(props) {
     return(
@@ -53,7 +51,6 @@ function Links(props) {
         </nav>
     );
 }
-
 
 export default function Navigation() {
     const [menuActive, setMenuState] = useState(false);

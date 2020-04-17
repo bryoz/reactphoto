@@ -28,11 +28,12 @@
 .header {
     display: flex;
     flex-direction: column;
+    height: 80px;
 }
 
 .title {
     order: 2;
-    margin: 0;
+    margin: auto 0;
     text-transform: none;
 }
 
