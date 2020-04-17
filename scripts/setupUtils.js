@@ -49,6 +49,8 @@ const parseFileInfo = (filePath, srcDir = '') => {
                 .replace(srcDir, '')
                 .replace(data.ext, '')
                 .replace(re, '/')
+                .replace(/\s+?/g, '_')
+                .toLowerCase()
         ),
     };
 };
