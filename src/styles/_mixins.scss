@@ -21,8 +21,7 @@ $c-primary: $c-red;
 }
 
 @mixin pageHeader {
-    margin-bottom: 100px;
-    text-align: center;
+    @include photoHeader;
 }
 
 @mixin photoHeader {

@@ -34,9 +34,29 @@ export default function Folder(props) {
         name: photo.name,
     }));
 
+    console.log(photos.length);
+
     const isWideLayout = useMediaQuery({
         query: '(min-width: 768px)'
     });
+
+    const isUltraWideLayout = useMediaQuery({
+        query: '(min-width: 1920px)'
+    })
+
+    let columns = 2;
+
+    if(isUltraWideLayout) {
+        columns = 4;
+    } else if(isWideLayout) {
+        columns = 3;
+    } else {
+        columns = 2;
+    }
+
+    if(columns > photos.length) {
+        columns = photos.length;
+    }
 
     return ( 
         <div className={styles.wrapper}>
@@ -50,7 +70,7 @@ export default function Folder(props) {
                     <Gallery 
                         direction="column" 
                         photos={photos} 
-                        columns={isWideLayout ? 3 : 2} 
+                        columns={3} 
                         renderImage={thumbnail} 
                         margin={isWideLayout ? 10 : 5}
                     />

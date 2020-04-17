@@ -26,6 +26,7 @@ export default function App() {
                 <title>{config.title}</title>
                 <link rel="canonical" href="" />
             </Helmet>
+
             <div className={styles.app}>
                 <div className={styles.page}>
                     <Header />

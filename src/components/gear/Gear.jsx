@@ -34,11 +34,17 @@ export default class Gear extends React.PureComponent {
             height: 1,
         }));
 
+        let columns = this.columns;
+
+        if(columns > items.length) {
+            columns = items.length;
+        }
+
         return (
             <Gallery 
                 direction="column" 
                 photos={items} 
-                columns={this.columns} 
+                columns={columns} 
                 renderImage={this.thumbnail}     
             />
         );
@@ -49,7 +55,6 @@ export default class Gear extends React.PureComponent {
             <React.Fragment>
                 <Heading tag="h3">{this.props.title}</Heading>
                 {this.renderInventory()}
-
             </React.Fragment>
         );
     }

@@ -28,6 +28,20 @@ export default function PhotoGallery (props) {
         query: '(min-width: 768px)'
     })
 
+    const isUltraWideLayout = useMediaQuery({
+        query: '(min-width: 1920px)'
+    })
+
+    let columns = 2;
+
+    if(isUltraWideLayout) {
+        columns = 4;
+    } else if(isWideLayout) {
+        columns = 3;
+    } else {
+        columns = 2;
+    }
+
     const location = useLocation();
     const isHome = location.pathname === "/";
 
@@ -40,6 +54,10 @@ export default function PhotoGallery (props) {
             height: photo.meta.height / photo.meta.width,
             slug: photo.slug,
         }));
+
+    if(columns > photos.length) {
+        columns = photos.length;
+    }
 
     return (
         <div className={styles.wrapper}>
@@ -55,7 +73,7 @@ export default function PhotoGallery (props) {
                 <Gallery 
                     direction="column" 
                     photos={photos} 
-                    columns={isWideLayout ? 3 : 2} 
+                    columns={columns} 
                     renderImage={thumbnail} 
                     margin={isWideLayout ? 10 : 5}
                 />
