@@ -1,5 +1,22 @@
-@import "styles/styles";
+// Global styles
+@import "styles/normalise";
+@import "styles/mixins";
 
+@import url('https://fonts.googleapis.com/css?family=Karla&display=swap');
+
+html {
+    background-color: $c-white;
+    color: $c-black;
+    font-size: 16px;
+    font-family: 'Karla', sans-serif;
+}
+
+a {
+    color: $c-primary;
+}
+
+
+//App.jsx
 .app {
     min-height: 100vh;
     display: flex;

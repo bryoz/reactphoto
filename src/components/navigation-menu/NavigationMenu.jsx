@@ -14,13 +14,13 @@ export default class NavigationMenu extends React.PureComponent {
     }
 
     render() {
-        console.log(this.props);
-
         return (
             <div className={styles.wrapper}>
                 {this.props.children}
 
-                <Social />
+                <div className={styles.social}>
+                    <Social />
+                </div>
             </div>
         );
     }

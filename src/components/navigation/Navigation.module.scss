@@ -1,5 +1,6 @@
 @import "../../styles/mixins";
 
+//Navigation.jsx
 .wrapper {
     align-self: flex-start;
 }
@@ -7,16 +8,22 @@
 .menu {
     position: absolute;
     top: 0;
-    right: 10px;
+    right: 0;
     z-index: 2;
     cursor: pointer;
-
-    height: 80px;
     text-transform: uppercase;
-    display: flex;
+    border: 1px solid $c-primary;
+    padding: 20px;
+    margin: 10px;
+    color: $c-primary;
+}
 
-    > span {
-        margin: auto 0;
+//NavigationLinks.jsx
+.content {
+    @include breakpoint(max-width 767px) {
+        flex-grow: 1;
+        display: flex;
+        padding: 90px 50px 150px;
     }
 }
 
@@ -27,7 +34,8 @@
     text-transform: uppercase;
 
     @include breakpoint(max-width 767px) {
-        padding: 90px 50px 150px;
+        margin: auto;
+        text-align: center;
     }
 
     @include breakpoint(768px) {
@@ -40,41 +48,58 @@
             margin-left: 40px;
         }
     }
+}
 
-    a {
-        text-decoration: none;
-        color: $c-link;
-        position: relative;
-        transition: color 250ms ease-in-out;
+.link {
+    text-decoration: none;
+    color: $c-link;
+    position: relative;
+    transition: color 250ms ease-in-out;
 
+    @include breakpoint(max-width 767px) {
+        display: block;
+        font-size: 32px;
+        margin-bottom: 25px;
+    }
+
+    @include breakpoint(768px) {
         &:after {
-            display:block;
+            display: block;
             content: '';
             border-bottom: solid 1px $c-primary;  
             transform: scaleX(0);  
             transition: transform 250ms ease-in-out;
         }
 
-        @include breakpoint(768px) {
-            &:hover {
-                color: rgba($c-link, 0.75);
+        &:hover {
+            color: rgba($c-link, 0.75);
 
-                &:after {
-                    transform: scaleX(1);
-                }
+            &:after {
+                transform: scaleX(1);
             }
         }
     }
-}
 
-a.active {
-    color: $c-primary;
-
-    &:hover {
+    &.active {
         color: $c-primary;
-    }
     
-    &:after {
-        transform: scaleX(1);
+        @include breakpoint(768px) {
+    
+            &:hover {
+                color: $c-primary;
+            }
+            
+            &:after {
+                transform: scaleX(1);
+            }
+        }
+    }
+
+    &.instagram {
+        color: $c-primary;
+
+        &:after {
+            display: none;
+        }
     }
 }

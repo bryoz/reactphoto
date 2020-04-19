@@ -23,8 +23,6 @@ const thumbnail = (props) => {
 };
 
 export default function Folder(props) {
-    console.log(props);
-
     const photos = props.data.children.map(photo => ({
         key: photo.name,
         src: photo.thumbnail,
@@ -33,8 +31,6 @@ export default function Folder(props) {
         slug: photo.slug,
         name: photo.name,
     }));
-
-    console.log(photos.length);
 
     const isWideLayout = useMediaQuery({
         query: '(min-width: 768px)'

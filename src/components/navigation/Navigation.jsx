@@ -1,88 +1,65 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import MediaQuery from 'react-responsive';
+import React, { useState, useCallback } from 'react';
+import { useMediaQuery } from 'react-responsive';
 
+// JSX Imports
 import NavigationMenu from '../navigation-menu/NavigationMenu';
+import Links from './NavigationLinks';
 
+// Resources
 import { photoPages } from '../../data';
-
 import styles from './Navigation.module.scss';
 
-function Links(props) {
-    return(
-        <nav className={styles.navigation}>
-            <ul className={styles.list}>
-                <li className={styles.item}>
-                    <NavLink
-                        className={styles.link}
-                        activeClassName={styles.active}
-                        exact
-                        to="/"
-                        onClick={props.onClick}
-                    >
-                        Latest
-                    </NavLink>
-                </li>
-                {props.pages.map((page) =>(
-                    <li className={styles.item} key={page.name}>
-                        <NavLink
-                            className={styles.link}
-                            activeClassName={styles.active}
-                            strict
-                            to={page.slug}
-                            onClick={props.onClick}
-                        >
-                            {page.name}
-                        </NavLink>
-                    </li>
-                ))}
-                <li className={styles.item}>
-                    <NavLink
-                        className={styles.link}
-                        activeClassName={styles.active}
-                        exact
-                        to="/about"
-                        onClick={props.onClick}
-                    >
-                        About
-                    </NavLink>
-                </li>
-            </ul>
-        </nav>
-    );
-}
+// Constants
+const pages = Object.values(photoPages);
 
 export default function Navigation() {
-    const [menuActive, setMenuState] = useState(false);
-    const pages = Object.values(photoPages);
+    const [ menuActive, setMenuState ] = useState(false);
+    const isFullSize = useMediaQuery({
+        query: '(min-width: 768px)'
+    });
+
+    const isFullSizeCb = useCallback(
+        () => {
+            if (menuActive && isFullSize) {
+                setMenuState(false);
+            }
+        },
+        [ isFullSize, menuActive ],
+    );
+
+    isFullSizeCb();
 
     return (
         <div className={styles.wrapper}>
-            <MediaQuery maxWidth={767}>
-                <div
-                    className={styles.menu}
-                    onClick={() => setMenuState(!menuActive)}
-                >
-                    {menuActive ?
-                        <span>Close</span>
-                    :
-                        <span>Menu</span>
+            {!isFullSize &&
+                <React.Fragment>
+                    <div
+                        className={styles.menu}
+                        onClick={() => setMenuState(!menuActive)}
+                    >
+                        {menuActive
+                            ? <span>Close</span>
+                            : <span>Menu</span>
+                        }
+                    </div>
+                    {menuActive &&
+                        <NavigationMenu>
+                            <Links
+                                onClick={() => setMenuState(false)}
+                                pages={pages}
+                                showInstagram={false}
+                            />
+                        </NavigationMenu>
                     }
-                </div>
-                {menuActive &&
-                    <NavigationMenu>
-                        <Links
-                            onClick={() => setMenuState(false)}
-                            pages={pages}
-                        />
-                    </NavigationMenu>
-                }
-            </MediaQuery>
-            <MediaQuery minWidth={768}>
+                </React.Fragment>
+            }
+            {isFullSize &&
                 <Links
                     pages={pages}
+                    onClick={() => setMenuState(false)}
+                    showInstagram={true}
                 />
-            </MediaQuery>
+            }
         </div>
     );
 }

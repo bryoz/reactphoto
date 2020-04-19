@@ -15,10 +15,11 @@ import { createRoutes } from './helpers/router';
 import { photoPages, config } from './data';
 import styles from './App.module.scss';
 
-export default function App() {
-    const pages = Object.values(photoPages);
-    const routes = createRoutes(pages);
+// Constants
+const pages = Object.values(photoPages);
+const routes = createRoutes(pages);
 
+export default function App() {
     return (
         <Router>
             <Helmet>

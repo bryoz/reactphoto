@@ -26,7 +26,9 @@ const Thumbnail = ({
                 alt={photo.alt}
             />
                 {photo.name &&
-                    <p className={styles.name}>{photo.name}</p>
+                    <div className={styles.name}>
+                        <span className={styles.text}>{photo.name}</span>
+                    </div>
                 }
         </div>
     );

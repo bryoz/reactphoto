@@ -2,7 +2,6 @@ import React from 'react';
 import Gallery from '../../components/gallery/Gallery';
 
 import { mostRecent } from '../../data';
-import { getPhotoById } from '../../helpers/photos';
 import styles from './Latest.module.scss';
 
 export default class Latest extends React.PureComponent {

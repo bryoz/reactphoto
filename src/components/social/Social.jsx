@@ -20,9 +20,25 @@ export default class Social extends React.PureComponent {
             <div className={styles.wrapper}>
                 <Heading tag="h3">{this.props.title}</Heading>
                 <ul className={styles.list}>
+                    {config.instagram &&
+                        <li className={cx("item", "instagram")}>
+                            <a
+                                className={styles.link} 
+                                href={`https://instagram/${config.instagram}`}
+                            >
+                                <FontAwesomeIcon
+                                    icon={['fab', 'instagram']}
+                                    className={styles.icon}
+                                />
+                            </a>
+                        </li>
+                    }
                     {social.map((item) =>(
                         <li key={item.name} className={cx("item", item.name)}>
-                            <a href={`/${item.url}`}>
+                            <a 
+                                className={styles.link}
+                                href={`/${item.url}`}
+                            >
                             {item.icon ?
                                 <FontAwesomeIcon
                                     icon={['fab', item.icon]}
