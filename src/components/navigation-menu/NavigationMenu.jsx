@@ -16,10 +16,11 @@ export default class NavigationMenu extends React.PureComponent {
     render() {
         return (
             <div className={styles.wrapper}>
-                {this.props.children}
-
-                <div className={styles.social}>
-                    <Social />
+                <div className={styles.content}>
+                    {this.props.children}
+                    <div className={styles.social}>
+                        <Social />
+                    </div>
                 </div>
             </div>
         );

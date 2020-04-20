@@ -2,14 +2,13 @@
 
 .list {
     @include flexList;
+    flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
 }
 
 .item {
-    &:not(:first-child) {
-        margin-left: 30px;
-    }
+    margin: 0 10px 10px;
 }
 
 .link {
