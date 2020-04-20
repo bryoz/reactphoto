@@ -15,5 +15,9 @@
 }
 
 .copy {
-    margin-bottom: 100px;
+    margin-bottom: 80px;
+
+    @include breakpoint ($medium-up) {
+        margin-bottom: 100px;
+    }
 }

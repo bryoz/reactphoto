@@ -12,5 +12,8 @@
 
     &:not(:first-child):before {
         content: '/';
+        color: $c-black;
+        margin-left: 10px;
+        padding-right: 10px;
     }
 }

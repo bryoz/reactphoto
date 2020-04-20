@@ -7,7 +7,8 @@ $max-width: 2980px;
 
 $c-black: #0f0f0f;
 $c-white: #ecede8;
-$c-red: red;
+$c-red: #f64c72;
+$c-green: #379683;
 
 $c-body: $c-black;
 $c-link: $c-black;
@@ -25,6 +26,11 @@ $c-primary: $c-red;
 }
 
 @mixin photoHeader {
-    margin-bottom: 100px;
     text-align: left;
+    margin-top: 40px;
+
+    @include breakpoint($medium-up) {
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
 }

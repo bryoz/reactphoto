@@ -9,7 +9,6 @@ export default function SinglePhoto(props) {
 
     const photo = getPhotoById(props.data.id);
     const src = getFileByPath(photo.src);
-    const meta = JSON.stringify(photo.meta, null, 4);
 
     return (
         <div className={styles.wrapper}>
@@ -21,9 +20,6 @@ export default function SinglePhoto(props) {
             <img src={src} className={styles.image} alt="" />
             
             <Return />
-
-            <Heading tag="h4">Meta</Heading>
-            <pre>{meta}</pre>
         </div>
     );
 }
