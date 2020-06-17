@@ -39,6 +39,7 @@ const parseFileInfo = (filePath, srcDir = '') => {
         originalPath: filePath,
         name: data.name,
         type: fileType,
+        ext: data.ext,
         src: (
             filePath
                 .replace(srcDir, '')
@@ -90,10 +91,32 @@ const getSharpMeta = async img => {
     };
 };
 
-const getThumbnail = async (img) => {
-    // TODO: generate thumbnail
-    return 'https://via.placeholder.com/400x400';
+const getThumbnail = async (children, photos) => {
+    if(!children[0]) {
+        return null;
+    }
+
+    switch(children[0].type) {
+        case PageType.Folder: {
+            return children[0].thumbnail;
+        }
+        case PageType.Image: {
+            return children[0].id;
+        }
+        default: {
+            return null;
+        }
+    }
 };
+
+const generateThumbnail = async (filePath, width, height) => {
+    return await sharp(filePath).resize({
+        width: width,
+        height: height,
+        fit: sharp.fit.cover,
+        position: sharp.strategy.entropy
+    }).toBuffer();
+}
 
 const scanDirectory = function(dir, processFile) {
     return fs.promises
@@ -118,5 +141,6 @@ module.exports = {
     scanDirectory,
     parseFileInfo,
     getThumbnail,
+    generateThumbnail,
     sortByDateModified,
 };

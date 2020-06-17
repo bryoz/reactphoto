@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const fsExtra = require('fs-extra');
 const { PageType } = require('../src/constants/Page');
-const { getSharpMeta, scanDirectory, parseFileInfo, getThumbnail, sortByDateModified } = require('./setupUtils.js');
+const { getSharpMeta, scanDirectory, parseFileInfo, getThumbnail, generateThumbnail, sortByDateModified } = require('./setupUtils.js');
 const { first } = require('underscore');
 
 // Source directory to scan
@@ -13,11 +13,10 @@ const dataOut = path.resolve(__dirname, process.argv[3] || '../src/data');
 const imgOut = path.resolve(__dirname, process.argv[4] || '../src/media');
 
 
-// Files to post-process
-const filesToCopy = [];
-
 // Our list of photos
 const photos = {};
+const sourcePhotos = {};
+const thumbnails = {};
 
 // Number of latest photos to get for front page
 const numberOfLatestPhotos = 10;
@@ -29,10 +28,7 @@ const processFile = async (file) => {
     const fileInfo = parseFileInfo(file, imgSrc);
 
     if (fileInfo.type === PageType.Image) {
-        filesToCopy.push({
-            src: fileInfo.originalPath,
-            dst: path.join(imgOut, fileInfo.src),
-        });
+        sourcePhotos[fileInfo.uuid] = fileInfo;
 
         photos[fileInfo.uuid] = {
             id: fileInfo.uuid,
@@ -54,13 +50,21 @@ const processFile = async (file) => {
         }
 
         case PageType.Folder: {
-            return {
+            const folderDetails = {
                 type: fileInfo.type,
                 name: fileInfo.name,
                 slug: fileInfo.slug,
-                thumbnail: await getThumbnail(file),
                 children: await scanDirectory(file, processFile),
             };
+
+            folderDetails.thumbnail = await getThumbnail(folderDetails.children, photos);
+
+            if(folderDetails.thumbnail) {
+                const sourcePhoto = sourcePhotos[folderDetails.thumbnail];
+                thumbnails[folderDetails.thumbnail] = path.join('/', 'thumb', sourcePhoto.src);
+            }
+
+            return folderDetails;
         }
 
         default: {
@@ -85,6 +89,7 @@ scanDirectory(imgSrc, processFile)
         const result = {
             photoPages: pageList,
             photos: photos,
+            thumbnails: thumbnails,
             mostRecent: mostRecent,
         };
 
@@ -95,11 +100,29 @@ scanDirectory(imgSrc, processFile)
             JSON.stringify(result, null, 4),
         );
 
+        
         // if we have any images to copy, empty the image dir and copy them across
         // We could also apply post-processing at the same time
+        const filesToCopy = Object.keys(sourcePhotos);
         if (filesToCopy.length > 0) {
 
             await fsExtra.emptyDir(imgOut);
-            filesToCopy.forEach(f => fsExtra.copySync(f.src, f.dst));
+
+            filesToCopy.forEach(async f => {
+                if(thumbnails[f]) {
+                    const thumb = await generateThumbnail(
+                        sourcePhotos[f].originalPath,
+                        400,
+                        400,
+                    );
+
+                    fsExtra.outputFileSync(path.join(imgOut, thumbnails[f]), thumb);
+                }
+
+                fsExtra.copySync(
+                    sourcePhotos[f].originalPath,
+                    path.join(imgOut, sourcePhotos[f].src),
+                );
+            });
         }
     });

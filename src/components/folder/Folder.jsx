@@ -5,7 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 import Breadcrumb from '../breadcrumb/Breadcrumb';
 import Thumbnail from '../thumbnail/Thumbnail';
 import Heading from '../heading/Heading';
-
+import { getThumbnailById, getFileByPath } from '../../helpers/photos';
 import styles from './Folder.module.scss';
 
 const thumbnail = (props) => {
@@ -25,7 +25,9 @@ const thumbnail = (props) => {
 export default function Folder(props) {
     const photos = props.data.children.map(photo => ({
         key: photo.name,
-        src: photo.thumbnail,
+        src: getFileByPath(
+            getThumbnailById(photo.thumbnail)
+        ),
         width: 1,
         height: 1,
         slug: photo.slug,
