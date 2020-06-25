@@ -9,10 +9,19 @@ html {
     color: $c-black;
     font-size: 16px;
     font-family: 'Karla', sans-serif;
+
+    @media (prefers-color-scheme: dark) {
+        background-color: $c-black;
+        color: $c-white;
+    }
 }
 
 a {
     color: $c-primary;
+
+    @media (prefers-color-scheme: dark) {
+        color: $c-primary-dark;
+    }
 }
 
 

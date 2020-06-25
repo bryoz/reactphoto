@@ -8,11 +8,9 @@ $max-width: 2980px;
 $c-black: #0f0f0f;
 $c-white: #ecede8;
 $c-red: #f64c72;
-$c-green: #379683;
 
-$c-body: $c-black;
-$c-link: $c-black;
-$c-primary: $c-red;
+$c-primary: darken($c-red, 10%);
+$c-primary-dark: lighten($c-red, 10%);
 
 @mixin flexList {
     list-style: none;

@@ -13,9 +13,17 @@
 
 .link {
     color: $c-primary;
+
+    @media (prefers-color-scheme: dark) {
+        color: $c-primary-dark;
+    }
 }
 
 .icon {
     font-size: 36px;
     fill: $c-primary;
+
+    @media (prefers-color-scheme: dark) {
+        color: $c-primary-dark;
+    }
 }

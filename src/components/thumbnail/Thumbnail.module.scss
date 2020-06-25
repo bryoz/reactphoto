@@ -21,4 +21,9 @@
     margin: auto;
     color: $c-primary;
     border: 1px solid $c-primary;
+    
+    @media (prefers-color-scheme: dark) {
+        color: $c-primary-dark;
+        border-color: $c-primary-dark;
+    }
 }

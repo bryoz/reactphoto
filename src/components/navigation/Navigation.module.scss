@@ -16,6 +16,11 @@
     padding: 10px 20px;
     margin: 20px 10px 20px 0;
     color: $c-primary;
+
+    @media (prefers-color-scheme: dark) {
+        border-color: $c-primary-dark;
+        color: $c-primary-dark;
+    }
 }
 
 //NavigationLinks.jsx
@@ -52,9 +57,13 @@
 
 .link {
     text-decoration: none;
-    color: $c-link;
     position: relative;
     transition: color 250ms ease-in-out;
+    color: $c-black;
+
+    @media (prefers-color-scheme: dark) {
+        color: $c-white;
+    }
 
     @include breakpoint(max-width 767px) {
         display: block;
@@ -69,24 +78,17 @@
             border-bottom: solid 1px $c-primary;  
             transform: scaleX(0);  
             transition: transform 250ms ease-in-out;
+
+            @media (prefers-color-scheme: dark) {
+                border-bottom-color: $c-primary-dark;
+            }
         }
 
         &:hover {
-            color: rgba($c-link, 0.75);
+            color: rgba($c-black, 0.75);
 
-            &:after {
-                transform: scaleX(1);
-            }
-        }
-    }
-
-    &.active {
-        color: $c-primary;
-    
-        @include breakpoint(768px) {
-    
-            &:hover {
-                color: $c-primary;
+            @media (prefers-color-scheme: dark) {
+                color: rgba($c-white, 0.75);
             }
             
             &:after {
@@ -94,9 +96,36 @@
             }
         }
     }
+    
+    &.active {
+        color: $c-primary;
+        
+        @media (prefers-color-scheme: dark) {
+            color: $c-primary-dark;
+        }
+        
+        @include breakpoint(768px) {
+            
+            &:hover {
+                color: $c-primary;
 
+                @media (prefers-color-scheme: dark) {
+                    color: $c-primary-dark;
+                }
+            }
+            
+            &:after {
+                transform: scaleX(1);
+            }
+        }
+    }
+    
     &.instagram {
         color: $c-primary;
+
+        @media (prefers-color-scheme: dark) {
+            color: $c-primary-dark;
+        }
 
         &:after {
             display: none;
