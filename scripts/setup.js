@@ -38,9 +38,8 @@ const processFile = async (file) => {
             meta: await getSharpMeta(file),
         };
     }
-    
+
     switch (fileInfo.type) {
-        
         case PageType.Image: {
             return {
                 slug: fileInfo.slug,

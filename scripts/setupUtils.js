@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
+const exif = require('exif-reader');
+const iptc = require('iptc-reader');
 const { Orientation } = require('../src/constants/Image');
 const { PageType } = require('../src/constants/Page');
 const { v4 } = require('uuid');
@@ -87,7 +89,10 @@ const getSharpMeta = async img => {
         height: meta.height,
         orientation: getOrientation(meta.width, meta.height),
         created: getFileCreatedDate(img),
-        updated: getFileUpdatedDate(img)
+        updated: getFileUpdatedDate(img),
+        // information: meta.xmp && convert.xml2js(meta.xmp, {compact: false}),
+        exif: meta.exif && exif(meta.exif),
+        iptc: meta.iptc && iptc(meta.iptc),
     };
 };
 
