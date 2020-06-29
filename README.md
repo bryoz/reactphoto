@@ -11,7 +11,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Getting started
 
-Grab this project and install dependencies using npm.
+Grab this project and install dependencies using [Node Package Manager](https://docs.npmjs.com/about-npm/index.html).
 
 Firstly, you'll need to create a new folder in the root of this project called ``photography``. This folder, and its subfolders/files will create your site structure.
 
