@@ -16,18 +16,19 @@ export default function SinglePhoto(props) {
             <div className={styles.header}>
                 <Breadcrumb />
                 <Heading tag="h2">
-                    {meta.iptc.headline ?
+                    {(meta.iptc && meta.iptc.headline) ?
                         meta.iptc.headline : photo.name
                     }
+
+                    {console.log(photo)}
                 </Heading>
             </div>
 
             <img src={src} className={styles.image} alt="" />
 
-            {meta.iptc.caption && 
+            {/* {meta.iptc.caption && 
                 <p className={styles.caption}>{meta.iptc.caption}</p>
-            }
-            {console.log(meta)}
+            } */}
             <Return />
         </div>
     );

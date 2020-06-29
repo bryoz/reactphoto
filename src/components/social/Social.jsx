@@ -34,10 +34,13 @@ export default class Social extends React.PureComponent {
                         </li>
                     }
                     {social.map((item) =>(
+                        (item.url && item.url.length > 0) ?
                         <li key={item.name} className={cx("item", item.name)}>
                             <a 
                                 className={styles.link}
-                                href={`/${item.url}`}
+                                href={item.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                             {item.icon ?
                                 <FontAwesomeIcon
@@ -49,6 +52,7 @@ export default class Social extends React.PureComponent {
                             }
                             </a>
                         </li>
+                        : null
                     ))}
                 </ul>
             </div>

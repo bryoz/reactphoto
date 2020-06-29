@@ -10,14 +10,17 @@ export default class Footer extends React.PureComponent {
         return (
             <footer className={styles.wrapper}>
                 <p>
-                    <a 
-                        href={config.url} 
-                        target="_blank" 
+                    {config.title}
+                    {' '}by {config.author}.
+                    Powered by
+                    {' '}
+                    <a
+                        href="https://github.com/bryoz/reactphoto"
+                        target="_blank"
                         rel="noopener noreferrer"
                     >
-                        {config.title}
-                    </a>
-                    {' '}- by {config.author}
+                        ReactPhoto
+                    </a>.
                 </p>
             </footer>
         );

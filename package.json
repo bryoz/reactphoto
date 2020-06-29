@@ -1,7 +1,25 @@
 {
-  "name": "photography",
+  "name": "reactphoto",
   "version": "0.1.0",
   "private": true,
+  "bugs": "https://github.com/bryoz/reactphoto/issues",
+  "description": "A simple static site builder for photographers",
+  "author": {
+    "name": "Bryan McDowall",
+    "email": "bryan.mcdowall@gmail.com",
+    "url": "https://github.com/bryoz/"
+  },
+  "contributors": [
+    "Finn Scott (https://github.com/GeeWizWow)"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "photography",
+    "react",
+    "static site builder",
+    "masonry",
+    "responsive"
+  ],
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/free-brands-svg-icons": "^5.13.0",

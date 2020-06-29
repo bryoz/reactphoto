@@ -111,8 +111,8 @@ scanDirectory(imgSrc, processFile)
                 if(thumbnails[f]) {
                     const thumb = await generateThumbnail(
                         sourcePhotos[f].originalPath,
-                        400,
-                        400,
+                        980,
+                        980,
                     );
 
                     fsExtra.outputFileSync(path.join(imgOut, thumbnails[f]), thumb);

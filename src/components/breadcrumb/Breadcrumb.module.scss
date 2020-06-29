@@ -12,8 +12,12 @@
 
     &:not(:first-child):before {
         content: '/';
-        color: $c-black;
         margin-left: 10px;
         padding-right: 10px;
+        color: $c-black;
+
+        @media (prefers-color-scheme: dark) {
+            color: $c-white;
+        }
     }
 }

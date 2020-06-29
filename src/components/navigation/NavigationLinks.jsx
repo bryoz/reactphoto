@@ -56,7 +56,7 @@ export default function Links(props) {
                         About
                     </NavLink>
                 </li>
-                {config.instagram && props.showInstagram &&
+                {(config.instagram && config.instagram.length > 0) && props.showInstagram &&
                     <li className={styles.item}>
                         <a
                             className={cx("link", "instagram")}

@@ -14,16 +14,20 @@
     height:100%;
     text-transform: uppercase;
     display: flex;
+    background-color: transparentize($c-white, 0.6);
+
+    @media (prefers-color-scheme: dark) {
+        background-color: transparentize($c-black, 0.6);
+    }
 }
 
 .text {
-    padding: 20px;
     margin: auto;
-    color: $c-primary;
-    border: 1px solid $c-primary;
+    color: $c-black;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 36px;
     
     @media (prefers-color-scheme: dark) {
-        color: $c-primary-dark;
-        border-color: $c-primary-dark;
+        color: $c-white;
     }
 }

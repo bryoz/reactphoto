@@ -1,8 +1,54 @@
+# ReactPhoto
+
+A simple site builder, informed by file structure.
+
+It's my hope that this static site builder will make it painless for photographers looking to build a simple, elegant portfolio to publish their work online.
+
+![Preview of ReactPhoto homepage using placeholder images](preview.jpg)
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Getting started
+
+Grab this project and install dependencies using npm.
+
+Firstly, you'll need to create a new folder in the root of this project called ``photography``. This folder, and its subfolders/files will create your site structure.
+
+Any files in ``photography`` root will be ignored. Any folders will create top-level-navigation, and their children and subfolders will create subnavigation and pages.
+
+Navigation and URLs are generated from folder and file names.
+
+### Photo metadata
+
+You can use IPTC metadata to overwrite a photo's page title (using the ``Headline`` field), and add caption text.
+
+Currently supported attributes are:
+
+- Headline
+- Caption
+
+In future, there will be configurable support for EXIF data, including location and camera details.
+
+### Site configuration
+
+You can edit the ``config`` file in ``src/data/config.json`` to customise your information - including site title, author and social media info.
+
+To change the site colors, you can edit the ``mixins`` file in ``src/styles/_mixins.scss``. If you like, you can supply hex values or use your own variables here. 
+
+Please note, there is a light (default) and dark theme, and your own color values should contrast sufficiently for legibility.
+
+You should also update the markup in the ``About`` page, via ``src/views/about/About.jsx``, supplying your own image and description text here.
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+### 'yarn setup'
+
+Run this to create your data file, and export your photos for use with the application. This will generate the required thumbnails and extract metadata if available.
+
+If you don't successfully complete the initial setup, the application will not build correctly.
 
 ### `yarn start`
 
@@ -27,42 +73,8 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
