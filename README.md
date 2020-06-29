@@ -1,4 +1,4 @@
-# ReactPhoto
+# ReactPhoto
 
 A simple site builder, informed by file structure.
 
@@ -9,9 +9,9 @@ It's my hope that this static site builder will make it painless for photographe
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Getting started
+## Getting started
 
-Grab this project and install dependencies using npm.
+Grab this project and install dependencies using [Node Package Manager](https://docs.npmjs.com/about-npm/index.html).
 
 Firstly, you'll need to create a new folder in the root of this project called ``photography``. This folder, and its subfolders/files will create your site structure.
 
@@ -30,7 +30,7 @@ Currently supported attributes are:
 
 In future, there will be configurable support for EXIF data, including location and camera details.
 
-### Site configuration
+### Site configuration
 
 You can edit the ``config`` file in ``src/data/config.json`` to customise your information - including site title, author and social media info.
 
