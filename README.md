@@ -6,6 +6,10 @@ It's my hope that this static site builder will make it painless for photographe
 
 ![Preview of ReactPhoto homepage using placeholder images](preview.jpg)
 
+### Demo
+
+ReactPhoto is currently being used to power [my own photo site, bryPhoto](https://www.bryphoto.co.uk/). I will keep this updated as development continues.
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
