@@ -1,5 +1,4 @@
 import React from 'react';
-import { createBrowserHistory } from "history";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
@@ -19,15 +18,10 @@ import styles from './App.module.scss';
 // Constants
 const pages = Object.values(photoPages);
 const routes = createRoutes(pages);
-const history = createBrowserHistory()
-
-history.listen(_ => {
-    window.scrollTo(0, 0);
-})
 
 export default function App() {
     return (
-        <Router history={history}>
+        <Router>
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>{config.title}</title>
