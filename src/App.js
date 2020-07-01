@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 // Components
+import ScrollToTop from './components/scroll-to-top/ScrollToTop';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import About from './views/about/About';
@@ -22,6 +23,7 @@ const routes = createRoutes(pages);
 export default function App() {
     return (
         <Router>
+            <ScrollToTop />
             <Helmet>
                 <meta charSet="utf-8" />
                 <title>{config.title}</title>
