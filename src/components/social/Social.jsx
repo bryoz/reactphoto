@@ -24,7 +24,9 @@ export default class Social extends React.PureComponent {
                         <li className={cx("item", "instagram")}>
                             <a
                                 className={styles.link} 
-                                href={`https://instagram/${config.instagram}`}
+                                href={`https://instagram.com/${config.instagram}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                                 <FontAwesomeIcon
                                     icon={['fab', 'instagram']}
