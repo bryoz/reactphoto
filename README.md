@@ -6,7 +6,25 @@ It's my hope that this static site builder will make it painless for photographe
 
 ![Preview of ReactPhoto homepage using placeholder images](preview.jpg)
 
-### Demo
+## Features
+
+### Easy setup
+
+Following the guide below, which requires very little coding knowledge. Simply add your own folders/subfolders and photos to create your site structure, then run the required npm commands to build your site.
+
+### Designed for mobile
+
+Using the best responsive design practices, the site helps your photos look their best whether on mobile or widescreen. Using masonry, the layout adjusts dynamically to fit your images.
+
+### Utilize metadata
+
+To avoid writing the same copy, many times over, **ReactPhoto** will extract EXIF/IPTC information which is commonly added during the post-processing stage, meaning all of your information can be stored in the image file itself.
+
+### Dark theme
+
+Includes light and dark color themes, which adjust automatically based on site visitor preferences.
+
+## Demo
 
 ReactPhoto is currently being used to power [my own photo site, bryPhoto](https://www.bryphoto.co.uk/). I will keep this updated as development continues.
 
@@ -48,9 +66,11 @@ You should also update the markup in the ``About`` page, via ``src/views/about/A
 
 In the project directory, you can run:
 
-### 'yarn setup'
+### `yarn setup`
 
 Run this to create your data file, and export your photos for use with the application. This will generate the required thumbnails and extract metadata if available.
+
+Each time you run this, the contents of ``src/media`` will be replaced with the content in your ``photography`` folder. You will need to run this each time you want to update the photos on your site. The source files remain unchanged.
 
 If you don't successfully complete the initial setup, the application will not build correctly.
 
