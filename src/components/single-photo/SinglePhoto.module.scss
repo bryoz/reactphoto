@@ -5,6 +5,25 @@
     margin: 0 auto;
 }
 
+.loading {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0;
+
+    @include breakpoint($medium-up) {
+        margin: 0 0 50px;
+    }
+
+    svg {
+        width: 15%;
+        fill: rgba($c-black, 0.1);
+        
+        @media (prefers-color-scheme: dark) {
+            fill: rgba($c-white, 0.1);
+        }
+    }
+}
+
 .header {
     position: relative;
     @include photoHeader;

@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Heading from '../heading/Heading';
 import Breadcrumb from '../breadcrumb/Breadcrumb';
 import Return from '../return/Return';
-import styles from './SinglePhoto.module.scss';
 import { getPhotoById, getFileByPath } from '../../helpers/photos';
+import { ThreeDots } from 'svg-loaders-react';
+
+import styles from './SinglePhoto.module.scss';
 
 export default function SinglePhoto(props) {
+
+    const [loaded, setLoaded] = useState(false);
 
     const photo = getPhotoById(props.data.id);
     const src = getFileByPath(photo.src);
@@ -23,9 +27,21 @@ export default function SinglePhoto(props) {
                 </Heading>
             </div>
 
-            <img src={src} className={styles.image} alt="" />
+            {loaded ? null : (
+                <div className={styles.loading}>
+                    <ThreeDots />
+                </div>
+            )}
 
-            {(meta.iptc && meta.iptc.caption) && 
+            <img
+                src={src}
+                className={styles.image}
+                style={loaded ? {} : {display: 'none'}}
+                onLoad={() => setLoaded(true)}
+                alt=""
+            />
+
+            {(meta.iptc && meta.iptc.caption) && loaded &&
                 <p className={styles.caption}>{meta.iptc.caption}</p>
             }
 
