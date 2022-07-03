@@ -1,0 +1,14 @@
+@import "../styles/mixins";
+
+.collectionsWrapper {
+
+}
+
+.collections {
+    @include flexList;
+}
+
+.collectionLink {
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,48 @@
+// .wrapper {
+//     display: flex;
+//     flex-flow: column wrap;
+//     align-content: space-between;
+//     overflow: auto;
+//     align-content: flex-start;
+// }
+
+// .link:nth-child(3n+1) { order: 1; }
+// .link:nth-child(3n+2) { order: 2; }
+// .link:nth-child(3n)   { order: 3; }
+
+// .link {
+//     width: calc(100% / 3);
+// }
+
+// .wrapper::before,
+// .wrapper::after {
+//   content: "";
+//   flex-basis: 100%;
+//   width: 0;
+//   order: 2;
+// }
+
+// .photo {
+//     max-width: 100%;
+// }
+
+
+.wrapper {
+    display: -webkit-box; /* Not needed if autoprefixing */
+    display: -ms-flexbox; /* Not needed if autoprefixing */
+    display: flex;
+    margin-left: -30px; /* gutter size offset */
+    width: auto;
+  }
+  .column {
+    padding-left: 30px; /* gutter size */
+    background-clip: padding-box;
+  }
+  
+  /* Style your items */
+  .column > .link { /* change div to reference your elements you put in <Masonry> */
+    background: grey;
+    margin-bottom: 30px;
+    display: block;
+    cursor: pointer;
+  }

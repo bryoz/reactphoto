@@ -1,0 +1,14 @@
+@import "../styles/_mixins.scss";
+
+.wrapper {
+    display: block;
+}
+
+.collections {
+    @include flexList;
+}
+
+.collectionLink {
+    display: flex;
+    flex-direction: column;
+}
