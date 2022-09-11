@@ -1,0 +1,18 @@
+@import "../../styles/mixins";
+
+.wrapper {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--background-modal);
+    overflow: auto;
+    display: flex;
+}
+
+.content {
+    margin: auto;
+    flex-direction: column;
+}

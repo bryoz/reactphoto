@@ -1,24 +1,24 @@
 import React from "react";
 
 import Header from "../header";
-// import { Footer } from "../footer/Footer";
+import Footer from "../footer";
 
+import "../../styles/themes.css"
 import * as styles from "./Layout.module.scss"
 
-const Layout = ({ children }) => {
+const Layout = (props) => {
 
     return (
         <div className={styles.wrapper}>
-            <Header />
+            <div className={styles.body}>
+                <Header 
+                    isHome={props.isHome ? true : false}
+                />
 
-            <div>
-                {children}
+                {props.children}
             </div>
 
-            {/* <Footer 
-                className={styles.footer}
-                links={links}
-            /> */}
+            <Footer />
         </div>
     )
 };

@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla&family=Permanent+Marker&display=swap');
+
+.title {
+    font-family: 'Permanent Marker', cursive;
+}
+
+html {
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--copy);
+}
+
+a {
+    color: var(--link);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+:root {
+    --background: rgb(236, 237, 232);
+    --background-modal: rgba(236, 237, 232, 0.95);
+    --copy: rgb(15, 15, 15);
+    --copy-dim: rgba(15, 15, 15, 0.75);
+    --link: rgb(232, 89, 78);
+    --subtle: rgb(210, 212, 204);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: rgb(15, 15, 15);
+        --background-modal: rgba(15, 15, 15, 0.95);
+        --copy:  rgb(236, 237, 232);
+        --copy-dim:  rgba(236, 237, 232, 0.75);
+        --link: rgb(232, 89, 78);
+        --subtle: rgb(35, 35, 35);
+    }
+}

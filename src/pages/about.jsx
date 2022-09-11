@@ -60,9 +60,15 @@ const About = ( props ) => {
                     alt=""
                 />
             </div>
-            <Social />
-            <h1>{frontmatter.title}</h1>
-            <MDXRenderer>{body}</MDXRenderer>
+
+            <div className={styles.social}>
+                <Social />
+            </div>
+
+            <h1 className={styles.title}>{frontmatter.title}</h1>
+            <div className={styles.content}>
+                <MDXRenderer>{body}</MDXRenderer>
+            </div>
         
         </Layout>
     )

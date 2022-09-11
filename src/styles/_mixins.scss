@@ -19,16 +19,13 @@ $c-primary-dark: lighten($c-red, 10%);
     padding: 0;
 }
 
-@mixin pageHeader {
-    @include photoHeader;
+@mixin linkStyle {
+    color: var(--link);
+    text-decoration: none;
+    font-weight: 600;
 }
 
-@mixin photoHeader {
-    text-align: left;
-    margin-top: 40px;
-
-    @include breakpoint($medium-up) {
-        margin-top: 100px;
-        margin-bottom: 100px;
-    }
+@mixin navStyle {
+    @include linkStyle;
+    text-transform: uppercase;
 }

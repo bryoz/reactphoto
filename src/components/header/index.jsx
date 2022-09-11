@@ -1,11 +1,38 @@
-import React from "react";
-import { graphql, Link, StaticQuery, } from "gatsby"
+import React, { useState, useCallback } from "react"
+import { graphql, StaticQuery, } from "gatsby"
 
-import { FaInstagram } from "react-icons/fa"
+import { useMediaQuery } from "react-responsive"
+
+import Links from "../../components/links"
+import NavigationMenu from "../../components/navigation-menu"
 
 import * as styles from "./Header.module.scss"
+import classNames from "classnames/bind"
 
-export default function Header() {
+
+export default function Header(props) {
+    const cx = classNames.bind(styles)
+
+    const classes = cx(
+        "wrapper",
+        props.isHome ? "home" : null
+    );
+
+    const [ menuActive, setMenuState ] = useState(false);
+    const isFullSize = useMediaQuery({
+        query: '(min-width: 768px)'
+    });
+
+    const isFullSizeCb = useCallback(
+        () => {
+            if (menuActive && isFullSize) {
+                setMenuState(false);
+            }
+        },
+        [ isFullSize, menuActive ],
+    );
+
+    isFullSizeCb();
 
     return (
         <StaticQuery
@@ -14,115 +41,45 @@ export default function Header() {
                     site {
                         siteMetadata {
                             title
-                            instagram
-                            aggregateGallery
-                            galleryTitle
-                            storeName
-                            storeUrl
-                        }
-                    }
-                    allDirectory (
-                        filter: {
-                            sourceInstanceName: {eq: "media"},
-                            name: {ne: "media"},
-                            relativeDirectory: {eq: ""}
-                        }
-                    ) {
-                        edges {
-                            node {
-                                name
-                                relativePath
-                            }
-                        }
-                    }
-                    allFile(
-                        filter: {
-                            relativeDirectory: {regex: "/^[^\/]+$/"},
-                            sourceInstanceName: {eq: "media"}
-                        }
-                    ) {
-                        group (
-                            field: relativeDirectory,
-                            limit: 1
-                        ) {
-                            fieldValue
-                            edges {
-                                node {
-                                    name
-                                }
-                            }
+                            subtitle
                         }
                     }
                 }
             `}
             render={data => (
                 <header
-                    className={styles.wrapper}
+                    className={classes}
                 >
-                    <h1>{data.site.siteMetadata.title}</h1>
+                    <div className={styles.siteName}>
+                        <h1 className={`title ${styles.title}`}>{data.site.siteMetadata.title}</h1>
+                        {props.isHome &&
+                            <h2 className={styles.subtitle}>{data.site.siteMetadata.subtitle}</h2>
+                        }
+                    </div>
 
-                    <nav className={styles.navigation}>
-                        <ul className={styles.links}>
-                            <li>
-                                <Link
-                                    to="/"
-                                    className={styles.link}
-                                >
-                                    Home
-                                </Link>
-                            </li>
-                            
-                            {data.site.siteMetadata.aggregateGallery ?
-                                <li>
-                                    <Link
-                                        to="/photos"
-                                        className={styles.link}
-                                    >
-                                        {data.site.siteMetadata.galleryTitle}
-                                    </Link>
-                                </li>
-                            : data.allFile.group.map(folder => ( 
-                                <li
-                                    key={folder.fieldValue}
-                                >
-                                    <Link
-                                        to={`/${folder.fieldValue.replace(/\s/g, "-").toLowerCase()}`}
-                                        className={styles.link}
-                                    >
-                                        {folder.fieldValue}
-                                    </Link>
-                                </li>
-                            ))}
-                            <li>
-                                <Link
-                                    to="/about"
-                                    className={styles.link}
-                                >
-                                    About
-                                </Link>
-                            </li>
-                            {data.site.siteMetadata.storeUrl && data.site.siteMetadata.storeUrl.length > 0 &&
-                                <li>
-                                    <Link
-                                        to={data.site.siteMetadata.storeUrl}
-                                        className={styles.link}
-                                    >
-                                        {data.site.siteMetadata.storeName}
-                                    </Link>
-                                </li>
+                    {isFullSize ?
+                        <Links />
+                    :
+                        <React.Fragment>
+                            <div
+                                className={styles.menu}
+                                onClick={() => setMenuState(!menuActive)}
+                            >
+                                {menuActive
+                                    ? <span>Close</span>
+                                    : <span>Menu</span>
+                                }
+                            </div>
+                            {menuActive &&
+                                <NavigationMenu>
+                                    <Links
+                                        onClick={() => setMenuState(false)}
+                                        isMenu
+                                    />
+                                </NavigationMenu>
                             }
-                            {data.site.siteMetadata.instagram && data.site.siteMetadata.instagram.length > 0 &&
-                                <li>
-                                    <Link
-                                        to={`https://instagram.com/${data.site.siteMetadata.instagram}`}
-                                        className={styles.link}
-                                    >
-                                        <FaInstagram />
-                                    </Link>
-                                </li>
-                            }
-                        </ul>
-                    </nav>
+                        </React.Fragment>
+                    }
                 </header>
             )}
         />

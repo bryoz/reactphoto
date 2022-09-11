@@ -7,13 +7,11 @@ import PhotoHandler from "../components/photo-handler"
 // markup
 const IndexPage = ({ data }) => {
     return (
-        <Layout>
+        <Layout
+            isHome
+        >
             <main>
-                <title>Home Page</title>
-                <h1>
-                    It is here!
-                </h1>
-                <p>Output all images as thumbnails</p>
+                <title>{data.site.siteMetadata.title}</title>
                 <PhotoHandler
                     photos={data.allFile.edges}
                 />
@@ -26,6 +24,11 @@ export default IndexPage
 
 export const query = graphql`
     {
+        site {
+            siteMetadata {
+                title
+            }
+        }
         allFile (
             filter: {
                 sourceInstanceName: {

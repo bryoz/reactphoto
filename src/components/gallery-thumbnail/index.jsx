@@ -12,9 +12,6 @@ export default function GalleryThumbnail(props) {
                 image={image}
                 alt=""
             />
-            <h3>
-                {props.name}
-            </h3>
         </div>
     )
 }

@@ -47,7 +47,7 @@ You can use IPTC metadata to overwrite a photo's page title (using the ``Headlin
 
 Currently supported attributes are:
 
-- Headline
+- ~~Headline~~ [Deprecated]
 - Caption
 
 In future, there will be configurable support for EXIF data, including location and camera details.

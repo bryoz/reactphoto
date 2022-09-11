@@ -1,34 +1,47 @@
 import React from "react";
-import { useStaticQuery, graphql, Link } from "gatsby"
+import { Link } from "gatsby"
 
 import * as styles from "./Breadcrumb.module.scss"
 
-export default function Breadcrumb(props) {
-    const data = useStaticQuery(graphql` {
-        site {
-            siteMetadata {
-                aggregateGallery
-                galleryTitle
-            }
-        }
-    }`);
+const Breadcrumb = ({showPhotoLink, location}) => {
 
-    return (
+    let arr = location.pathname.split("/")
+    arr = arr.filter(e =>  e)
+    arr.splice(-1)
+    let link = ""
+    
+    return(
         <div className={styles.wrapper}>
-            {props.name.length > 0 && props.link.length > 1 ?
-                <Link
-                    to={props.link}
-                >
-                    {props.name}
-                </Link>
-            : data.site.siteMetadata.aggregateGallery === true && data.site.siteMetadata.galleryTitle.length > 0 ?
-                <Link
-                    to={`/photos`}
-                >
-                    {data.site.siteMetadata.galleryTitle}
-                </Link>
+
+            {arr.length > 0 || showPhotoLink ?
+                <ul className={styles.breadcrumbs}>
+                    {showPhotoLink &&
+                        <li className={styles.crumb}>
+                            <Link
+                                to={"/photos"}
+                            >
+                                Photos
+                            </Link>
+                        </li>
+                    }
+
+                    {arr.length > 0 && arr.map((crumb, key) => {
+                        link = link + "/" + crumb
+
+                        return(
+                            <li key={key} className={styles.crumb}>
+                                <Link
+                                    to={`${link.replace(/\s/g, "-").toLowerCase()}`}
+                                >
+                                    {crumb.replace(/-/g, " ")}
+                                </Link>
+                            </li>
+                        )
+                    })}
+                </ul>
             : null }
         </div>
     )
 }
 
+export default Breadcrumb;

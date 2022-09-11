@@ -64,6 +64,18 @@ exports.createPages = async function ({ actions, graphql }) {
                 }
             }
 
+            allDirectory(filter: {sourceInstanceName: {eq: "media"}}, skip: 1) {
+                group(field: relativePath) {
+                    fieldValue
+                }
+                edges {
+                    node {
+                        name
+                        relativePath
+                    }
+                }
+            }
+
             thumbnails: allFile(filter: {sourceInstanceName: {eq: "media"}}) {
                 group(field: relativeDirectory, limit: 1) {
                     fieldValue
@@ -75,6 +87,15 @@ exports.createPages = async function ({ actions, graphql }) {
         }
     `)
 
+    // data.allDirectory.edges.forEach(directory => {
+    //     const slug = directory.node.fields.relativePath.replace(/\s/g, "-").toLowerCase()
+    //     actions.createPage({
+    //         path: slug,
+    //         component: require.resolve(`./src/templates/PhotoIndex.jsx`),
+    //         context: { relativePath: directory.node.relativePath },
+    //     })
+    // })
+
     data.allFile.edges.forEach(photo => {
         const slug = photo.node.fields.slug
         actions.createPage({
@@ -84,8 +105,21 @@ exports.createPages = async function ({ actions, graphql }) {
         })
     })
 
-    data.allFile.group.forEach(folder => {
-        const slug = folder.fieldValue.replace(/\s/g, "-").toLowerCase();
+    // data.allFile.group.forEach(folder => {
+    //     const slug = folder.fieldValue.replace(/\s/g, "-").toLowerCase();
+    //     actions.createPage({
+    //         path: slug,
+    //         component: require.resolve(`./src/templates/PhotoIndex.jsx`),
+    //         context: {
+    //             slug: slug,
+    //             dir: folder.fieldValue,
+    //             dirRegex: "/^" + folder.fieldValue + "//"
+    //         },
+    //     })
+    // })
+
+    data.allDirectory.group.forEach(folder => {
+        const slug = `photos/${folder.fieldValue.replace(/\s/g, "-").toLowerCase()}`;
         actions.createPage({
             path: slug,
             component: require.resolve(`./src/templates/PhotoIndex.jsx`),

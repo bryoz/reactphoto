@@ -2,6 +2,7 @@ import React from "react"
 import { graphql, Link } from "gatsby"
 
 import Layout from "../components/layout"
+import Masonry from 'react-masonry-css'
 import GalleryThumbnail from "../components/gallery-thumbnail"
 import PhotoHandler from "../components/photo-handler"
 
@@ -9,32 +10,48 @@ import Breadcrumb from "../components/breadcrumb"
 
 import * as styles from "./PhotoIndex.module.scss"
 
-export default function PhotoIndex({ data }) {
-    const gallery = data.file.relativeDirectory
-    const photos = data.allFile.edges
-    const thumbs = data.thumbs.group
+export default function PhotoIndex( props ) {
+    const gallery = props.data.file.relativeDirectory
+    const photos = props.data.allFile.edges
+    const thumbs = props.data.thumbs.group
+    const isAggregate = props.data.site.siteMetadata.aggregateGallery
 
-    var folderArray = data.file.relativeDirectory.split("/")
-    var folder = folderArray.slice(0, folderArray.length - 1).join("/")
+    const breakpointColumnsObj = {
+        default: 4,
+        1100: 3,
+        700: 2,
+        500: 1
+    }
+
+    let title = gallery.split('/');
+    title = title[title.length-1];
+    title = title.charAt(0).toUpperCase() + title.slice(1);
+
 
     return (
         <Layout>
-            <Breadcrumb 
-                link={`/${folder.replace(/\s/g, "-").toLowerCase()}`}
-                name={folder}
+            <Breadcrumb
+                location={props.location}
+                showPhotoLink={isAggregate}
             />
 
-            <h1>{gallery}</h1>
+            <h1 className={styles.title}>
+                {title}
+            </h1>
+
             {thumbs && thumbs.length > 0 &&
                 <div className={styles.collectionsWrapper}>
-                    <h2>Collections within {gallery}</h2>
-                    <ul className={styles.collections}>
+                    <Masonry
+                        breakpointCols={breakpointColumnsObj}
+                        className={styles.wrapper}
+                        columnClassName={styles.column}
+                    >
                         {thumbs.map(function(thumb){
                             thumb = thumb.edges[0].node
                             const link = "/" + thumb.relativeDirectory.replace(/\s/g, "-").toLowerCase()
 
                             return (
-                                <li
+                                <div
                                     className={styles.collection}
                                     key={link}
                                 >
@@ -43,20 +60,25 @@ export default function PhotoIndex({ data }) {
                                         className={styles.collectionLink}
                                     >
                                         <GalleryThumbnail
-                                            name={thumb.relativeDirectory.split('/').pop()}
                                             photo={thumb.childImageSharp.gatsbyImageData}
                                         />
+                                        
                                     </Link>
-                                </li>
+                                    <h3 className={styles.collectionTitle}>
+                                        <Link
+                                            to={link}
+                                            className={styles.collectionTitleLink}
+                                        >
+                                            {thumb.relativeDirectory.split('/').pop()}
+                                        </Link>
+                                    </h3>
+                                </div>
                             )
                         })}
-                    </ul>
+                    </Masonry>
                 </div>
             }
 
-            
-
-            <h2>Photos within {gallery}</h2>
             <PhotoHandler 
                 photos={photos}
             />
@@ -90,14 +112,15 @@ export const query = graphql`
             }
         ) {
             group(field: relativeDirectory, limit: 1) {
+                fieldValue
                 edges {
                     node {
                         relativeDirectory
                         name
                         childImageSharp {
                             gatsbyImageData(
-                                height: 400,
-                                width: 400,
+                                height: 480,
+                                width: 480,
                                 transformOptions: {
                                     cropFocus: ATTENTION
                                 }
@@ -105,6 +128,11 @@ export const query = graphql`
                         }
                     }
                 }
+            }
+        }
+        site {
+            siteMetadata {
+                aggregateGallery
             }
         }
     }

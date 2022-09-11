@@ -41,7 +41,7 @@ const IconRetrieve = ({ icon }) => {
     return mapIcons.has(icon) ? mapIcons.get(icon) : mapIcons.get('default')
 }
 
-export default function Header() {
+export default function Social() {
     const data = useStaticQuery(graphql` {
         site {
             siteMetadata {

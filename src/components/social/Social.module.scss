@@ -12,9 +12,16 @@
 }
 
 .link {
-    
-}
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 9999px;
+    background: var(--copy-dim);
 
-.icon {
-    font-size: 36px;
+    > * {
+        color: var(--background);
+        font-size: 1.75rem;
+    }
 }

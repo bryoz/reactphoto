@@ -1,19 +1,22 @@
 @import "../../styles/normalise", "../../styles/mixins";
 
-:root {
-    --background: $c-white;
-    --copy: $c-black;
-    --link: $c-primary;
-}
-
-.dark {
-    --background: $c-black;
-    --copy:  $c-white;
-    --link: $c-primary-dark;
-}
-
-
 .wrapper {
     background: var(--background);
     min-height: 100vh;
+    color: var(--copy);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.body {
+    flex-grow: 1;
+    padding: 0 20px 100px;
+    max-width: 1400px;
+    width: 100%;
+    margin: auto;
+
+    @include breakpoint(min-width 1100px) {
+        padding: 0 30px 100px;
+    }
 }

@@ -2,12 +2,22 @@ import React from "react";
 import { graphql, Link, StaticQuery, } from "gatsby"
 import { getImage } from "gatsby-plugin-image"
 
+import Masonry from "react-masonry-css";
 import GalleryThumbnail from "../components/gallery-thumbnail"
 import Layout from "../components/layout"
 
 import * as styles from "./photos.module.scss"
 
+
 export default function Photos() {
+
+    const breakpointColumnsObj = {
+        default: 4,
+        1100: 3,
+        700: 2,
+        500: 1
+    }
+
     return (
         <StaticQuery
             query={graphql`
@@ -29,8 +39,8 @@ export default function Photos() {
                                     children {
                                         ... on ImageSharp {
                                             gatsbyImageData(
-                                                height: 400,
-                                                width: 400,
+                                                height: 480,
+                                                width: 480,
                                                 transformOptions: {
                                                     cropFocus: ATTENTION
                                                 }
@@ -46,34 +56,45 @@ export default function Photos() {
 
             render={data => (
                 <Layout>
-                    <div className={styles.wrapper}>
-                        {data.allFile.group && data.allFile.group.length ?
-                            <ul className={styles.collections}>
-                                {data.allFile.group.map(function(folder){
-                                    const image = getImage(folder.edges[0].node.children[0].gatsbyImageData)
+                    {data.allFile.group && data.allFile.group.length ?
+                        <Masonry
+                            breakpointCols={breakpointColumnsObj}
+                            className={styles.wrapper}
+                            columnClassName={styles.column}
+                        >
 
-                                    return (
-                                        <li 
-                                            className={styles.collection}
-                                            key={folder.fieldValue}
+                            {data.allFile.group.map(function(folder){
+                                const image = getImage(folder.edges[0].node.children[0].gatsbyImageData)
+
+                                return (
+                                    <div 
+                                        className={styles.collection}
+                                        key={folder.fieldValue}
+                                    >
+                                        <Link
+                                            to={`/${folder.fieldValue.replace(/\s/g, "-").toLowerCase()}`}
+                                            className={styles.collectionLink}
                                         >
+                                            <GalleryThumbnail
+                                                name={folder.fieldValue}
+                                                photo={image}
+                                            />
+                                        </Link>
+                                        <h3 className={styles.collectionTitle}>
                                             <Link
                                                 to={`/${folder.fieldValue.replace(/\s/g, "-").toLowerCase()}`}
-                                                className={styles.collectionLink}
+                                                className={styles.collectionTitleLink}
                                             >
-                                                <GalleryThumbnail
-                                                    name={folder.fieldValue}
-                                                    photo={image}
-                                                />
+                                                {folder.fieldValue}
                                             </Link>
-                                        </li>
-                                    )
-                                })}
-                            </ul>
+                                        </h3>
+                                    </div>
+                                )
+                            })}
+                        </Masonry>
                         :
-                            <p>Please add folders/images to your media directory</p>
-                        }
-                    </div>
+                        <p>Please add folders/images to your media directory</p>
+                    }
                 </Layout>
             )}
         />

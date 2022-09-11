@@ -1,7 +1,7 @@
 module.exports = {
     siteMetadata: {
-        title: "ReactPhoto",
-        siteUrl: "https://www.github.com/bryoz/reactphoto",
+        "title": "ReactPhoto",
+        "siteUrl": "https://www.github.com/bryoz/reactphoto",
         "subtitle": "Selected photographic works of Bryan McDowall",
         "author": "Bryan McDowall",
         "email": "bryan.mcdowall@gmail.com",
