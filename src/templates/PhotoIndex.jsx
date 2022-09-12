@@ -11,10 +11,11 @@ import Breadcrumb from "../components/breadcrumb"
 import * as styles from "./PhotoIndex.module.scss"
 
 export default function PhotoIndex( props ) {
-    const gallery = props.data.file.relativeDirectory
+    // const gallery = props.data.file.relativeDirectory
     const photos = props.data.allFile.edges
     const thumbs = props.data.thumbs.group
-    const isAggregate = props.data.site.siteMetadata.aggregateGallery
+
+    console.log(props)
 
     const breakpointColumnsObj = {
         default: 4,
@@ -23,16 +24,14 @@ export default function PhotoIndex( props ) {
         500: 1
     }
 
-    let title = gallery.split('/');
-    title = title[title.length-1];
-    title = title.charAt(0).toUpperCase() + title.slice(1);
-
+    let title = props.path.split('/')
+    title = title[title.length-1]
+    title = title.replace(/-/g, " ")
 
     return (
         <Layout>
             <Breadcrumb
                 location={props.location}
-                showPhotoLink={isAggregate}
             />
 
             <h1 className={styles.title}>
@@ -48,7 +47,7 @@ export default function PhotoIndex( props ) {
                     >
                         {thumbs.map(function(thumb){
                             thumb = thumb.edges[0].node
-                            const link = "/" + thumb.relativeDirectory.replace(/\s/g, "-").toLowerCase()
+                            const link = "/photos/" + thumb.relativeDirectory.replace(/\s/g, "-").toLowerCase()
 
                             return (
                                 <div
@@ -128,11 +127,6 @@ export const query = graphql`
                         }
                     }
                 }
-            }
-        }
-        site {
-            siteMetadata {
-                aggregateGallery
             }
         }
     }

@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "gatsby"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
-// import Masonry from 'react-masonry-component'
-// import MasonryInfiniteScroller from 'react-masonry-infinite'
 import Masonry from 'react-masonry-css'
 
 import * as styles from "./PhotoHandler.module.scss"

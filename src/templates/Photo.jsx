@@ -14,7 +14,6 @@ export default function Photo(props) {
     const meta = props.data.file.childImageSharp.fields.exif.meta
     const raw = props.data.file.childImageSharp.fields.exif.raw
     const desc = props.data.file.childImageSharp.fields.exif.raw.image.ImageDescription
-    const isAggregate = props.data.site.siteMetadata.aggregateGallery
 
     let shutter
     if (raw.exif.ExposureTime < 1) {
@@ -28,7 +27,6 @@ export default function Photo(props) {
         <Layout>
             <Breadcrumb
                 location={props.location}
-                showPhotoLink={isAggregate}
             />
 
             <h1 className={styles.title}>{props.data.file.name}</h1>
@@ -87,7 +85,7 @@ export default function Photo(props) {
 
             <div className={styles.backWrapper}>
                 <Link
-                    to={`/${folder.replace(/\s/g, "-").toLowerCase()}`}
+                    to={`/photos/${folder.replace(/\s/g, "-").toLowerCase()}`}
                     className={styles.back}
                 >
                     Back to "{folder}"
@@ -131,11 +129,6 @@ export const query = graphql`
             }
             name
             relativeDirectory
-        }
-        site {
-            siteMetadata {
-                aggregateGallery
-            }
         }
     }
 `

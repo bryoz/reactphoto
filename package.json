@@ -1,11 +1,18 @@
 {
   "name": "react-photo",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "description": "react-photo",
   "author": "bryoz",
   "keywords": [
-    "gatsby"
+    "gatsby",
+    "photography",
+    "photo",
+    "portfolio"
+  ],
+  "contributors": [
+    "Finn Scott (https://github.com/GeeWizWow)",
+    "Thomas Philips"
   ],
   "scripts": {
     "develop": "gatsby develop",

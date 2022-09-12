@@ -21,10 +21,9 @@ export default function Photos() {
     return (
         <StaticQuery
             query={graphql`
-                query DirectoryQuery {
+                query DirectoryQuery { 
                     allFile(
                         filter: {
-                            relativeDirectory: {regex: "/^[^\/]+$/"},
                             sourceInstanceName: {eq: "media"}
                         }
                     ) {
@@ -56,6 +55,7 @@ export default function Photos() {
 
             render={data => (
                 <Layout>
+                    {console.log(data)}
                     {data.allFile.group && data.allFile.group.length ?
                         <Masonry
                             breakpointCols={breakpointColumnsObj}
@@ -64,15 +64,28 @@ export default function Photos() {
                         >
 
                             {data.allFile.group.map(function(folder){
+                                let current
+                                let next
+
+                                next = folder.fieldValue.split('/')[0]
+
+                                if(current == next) {
+                                    console.log(true)
+                                } else {
+                                    console.log(false)
+                                }
+
+                                current = next
+
                                 const image = getImage(folder.edges[0].node.children[0].gatsbyImageData)
 
                                 return (
-                                    <div 
+                                    <div
                                         className={styles.collection}
                                         key={folder.fieldValue}
                                     >
                                         <Link
-                                            to={`/${folder.fieldValue.replace(/\s/g, "-").toLowerCase()}`}
+                                            to={`/photos/${folder.fieldValue.replace(/\s/g, "-").toLowerCase()}`}
                                             className={styles.collectionLink}
                                         >
                                             <GalleryThumbnail
@@ -82,7 +95,7 @@ export default function Photos() {
                                         </Link>
                                         <h3 className={styles.collectionTitle}>
                                             <Link
-                                                to={`/${folder.fieldValue.replace(/\s/g, "-").toLowerCase()}`}
+                                                to={`/photos/${folder.fieldValue.replace(/\s/g, "-").toLowerCase()}`}
                                                 className={styles.collectionTitleLink}
                                             >
                                                 {folder.fieldValue}

@@ -82,6 +82,7 @@ export default function Links(props) {
                                     to="/photos"
                                     className={styles.link}
                                     activeClassName={styles.active}
+                                    partiallyActive={true}
                                 >
                                     {data.site.siteMetadata.galleryTitle}
                                 </Link>

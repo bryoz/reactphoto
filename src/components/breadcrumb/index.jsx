@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 
 import * as styles from "./Breadcrumb.module.scss"
 
-const Breadcrumb = ({showPhotoLink, location}) => {
+const Breadcrumb = ({location}) => {
 
     let arr = location.pathname.split("/")
     arr = arr.filter(e =>  e)
@@ -13,18 +13,8 @@ const Breadcrumb = ({showPhotoLink, location}) => {
     return(
         <div className={styles.wrapper}>
 
-            {arr.length > 0 || showPhotoLink ?
+            {arr.length > 0 &&
                 <ul className={styles.breadcrumbs}>
-                    {showPhotoLink &&
-                        <li className={styles.crumb}>
-                            <Link
-                                to={"/photos"}
-                            >
-                                Photos
-                            </Link>
-                        </li>
-                    }
-
                     {arr.length > 0 && arr.map((crumb, key) => {
                         link = link + "/" + crumb
 
@@ -39,7 +29,7 @@ const Breadcrumb = ({showPhotoLink, location}) => {
                         )
                     })}
                 </ul>
-            : null }
+            }
         </div>
     )
 }

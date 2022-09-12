@@ -15,7 +15,7 @@ exports.onCreateNode = ({
         createNodeField({
             node,
             name: `slug`,
-            value: slug
+            value: `/photos${slug}`
         });
     };
 
@@ -119,7 +119,7 @@ exports.createPages = async function ({ actions, graphql }) {
     // })
 
     data.allDirectory.group.forEach(folder => {
-        const slug = `photos/${folder.fieldValue.replace(/\s/g, "-").toLowerCase()}`;
+        const slug = `photos/${folder.fieldValue.replace(/\s/g, "-").toLowerCase()}`
         actions.createPage({
             path: slug,
             component: require.resolve(`./src/templates/PhotoIndex.jsx`),
