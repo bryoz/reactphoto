@@ -10,7 +10,6 @@ import * as styles from "./about.module.scss"
 
 export const query = graphql`{
     about: mdx(
-      fileAbsolutePath: {regex: "src/data/"}
       frontmatter: {tag: {eq: "about"}}
     ) {
         frontmatter {
