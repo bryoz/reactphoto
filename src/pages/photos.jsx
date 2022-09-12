@@ -8,6 +8,17 @@ import Layout from "../components/layout"
 
 import * as styles from "./photos.module.scss"
 
+const getGroupedData = (data = []) => {
+    const groups = new Map();
+    for (const item of data) {
+        const [topLevel] = [ ...item.fieldValue.split('/') ];
+
+        if (!groups.has(topLevel)) {
+            groups.set(topLevel, { fieldValue: topLevel, edges: item.edges });
+        }
+    }
+    return [ ...groups.values() ];
+};
 
 export default function Photos() {
 
@@ -55,7 +66,6 @@ export default function Photos() {
 
             render={data => (
                 <Layout>
-                    {console.log(data)}
                     {data.allFile.group && data.allFile.group.length ?
                         <Masonry
                             breakpointCols={breakpointColumnsObj}
@@ -63,19 +73,19 @@ export default function Photos() {
                             columnClassName={styles.column}
                         >
 
-                            {data.allFile.group.map(function(folder){
-                                let current
-                                let next
+                            {getGroupedData(data.allFile.group).map(function(folder){
+                                // let current
+                                // let next
 
-                                next = folder.fieldValue.split('/')[0]
+                                // next = folder.fieldValue.split('/')[0]
 
-                                if(current == next) {
-                                    console.log(true)
-                                } else {
-                                    console.log(false)
-                                }
+                                // if(current == next) {
+                                //     console.log(true)
+                                // } else {
+                                //     console.log(false)
+                                // }
 
-                                current = next
+                                // current = next
 
                                 const image = getImage(folder.edges[0].node.children[0].gatsbyImageData)
 
