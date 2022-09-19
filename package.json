@@ -1,76 +1,50 @@
 {
-  "name": "reactphoto",
-  "version": "0.1.0",
+  "name": "react-photo",
+  "version": "2.0.0",
   "private": true,
-  "bugs": "https://github.com/bryoz/reactphoto/issues",
-  "description": "A simple static site builder for photographers",
-  "author": {
-    "name": "Bryan McDowall",
-    "email": "bryan.mcdowall@gmail.com",
-    "url": "https://github.com/bryoz/"
-  },
-  "contributors": [
-    "Finn Scott (https://github.com/GeeWizWow)"
-  ],
-  "license": "MIT",
+  "description": "react-photo",
+  "author": "bryoz",
   "keywords": [
+    "gatsby",
     "photography",
-    "react",
-    "static site builder",
-    "masonry",
-    "responsive"
+    "photo",
+    "portfolio"
   ],
-  "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.28",
-    "@fortawesome/free-brands-svg-icons": "^5.13.0",
-    "@fortawesome/react-fontawesome": "^0.1.9",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "classnames": "^2.2.6",
-    "exif-reader": "^1.0.3",
-    "iptc-reader": "^1.0.0",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-helmet": "^5.2.1",
-    "react-photo-gallery": "^8.0.0",
-    "react-responsive": "^8.0.3",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.0",
-    "sharp": "^0.24.0",
-    "svg-loaders-react": "^2.2.1",
-    "underscore": "^1.9.2",
-    "xml-js": "^1.6.11"
-  },
+  "contributors": [
+    "Finn Scott (https://github.com/GeeWizWow)",
+    "Thomas Philips"
+  ],
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "babel-node": "babel-node --presets @babel/preset-env",
-    "setup": "npm run babel-node -- scripts/setup.js"
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@babel/node": "^7.8.7",
-    "@babel/preset-env": "^7.9.0",
-    "fs-extra": "^9.0.0",
-    "node-sass": "^4.14.1",
-    "uuid": "^7.0.3"
+  "dependencies": {
+    "@mdx-js/mdx": "^1.6.22",
+    "@mdx-js/react": "^1.6.22",
+    "classnames": "^2.3.1",
+    "gatsby": "^4.22.1",
+    "gatsby-plugin-image": "^2.22.0",
+    "gatsby-plugin-manifest": "^4.22.0",
+    "gatsby-plugin-mdx": "^4.1.1",
+    "gatsby-plugin-react-helmet": "^5.22.0",
+    "gatsby-plugin-sass": "^5.22.0",
+    "gatsby-plugin-sharp": "^4.22.0",
+    "gatsby-plugin-sharp-exif": "^1.0.4",
+    "gatsby-plugin-sitemap": "^5.22.0",
+    "gatsby-remark-images": "^6.22.0",
+    "gatsby-source-filesystem": "^4.22.0",
+    "gatsby-transformer-sharp": "^4.22.0",
+    "mapbox-gl": "^2.10.0",
+    "path": "^0.12.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
+    "react-icons": "^4.4.0",
+    "react-masonry-css": "^1.0.16",
+    "react-responsive": "^9.0.0-beta.10",
+    "sass": "^1.54.9"
   }
 }

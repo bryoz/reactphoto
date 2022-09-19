@@ -12,18 +12,16 @@
 }
 
 .link {
-    color: $c-primary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 9999px;
+    background: var(--copy-dim);
 
-    @media (prefers-color-scheme: dark) {
-        color: $c-primary-dark;
-    }
-}
-
-.icon {
-    font-size: 36px;
-    fill: $c-primary;
-
-    @media (prefers-color-scheme: dark) {
-        color: $c-primary-dark;
+    > * {
+        color: var(--background);
+        font-size: 1.75rem;
     }
 }

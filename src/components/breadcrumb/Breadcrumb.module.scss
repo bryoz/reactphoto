@@ -1,23 +1,20 @@
 @import "../../styles/mixins";
 
 .wrapper {
-    position: absolute;
-    top: -100%;
-    width: 100%;
+
 }
 
-.link {
-    text-transform: uppercase;
-    text-decoration: none;
+.breadcrumbs {
+    @include flexList;
+}
 
-    &:not(:first-child):before {
-        content: '/';
-        margin-left: 10px;
-        padding-right: 10px;
-        color: $c-black;
+.crumb {
+    @include navStyle;
 
-        @media (prefers-color-scheme: dark) {
-            color: $c-white;
-        }
+    &:not(:last-child):after {
+        content: "/";
+        padding: 0 10px 0 10px;
+        color: var(--copy);
+        opacity: 0.4;
     }
 }

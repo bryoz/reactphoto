@@ -1,41 +1,59 @@
-@import '../../styles/mixins';
+@import "../../styles/mixins";
 
 .wrapper {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 10px;
-    max-width: $max-width;
 
-    @include breakpoint($medium-up) {
-        margin: 0 auto;
-        padding: 0 50px;
+    &:not(.home) {
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 100px;
+
+        .title {
+            line-height: 80px;
+        }
     }
 }
 
-.isHome {
-    height: 82vh;
+.home {
+    flex-direction: column-reverse;
+    height: 80vh;
 
-    @include breakpoint($medium-up) {
-        height: 90vh;
+    .siteName {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        justify-content: center;
     }
-}
 
-.header {
-    display: flex;
-    flex-direction: column;
-    height: 80px;
+    .navigation {
+        justify-content: end;
+        display: flex;
+    }
+
+    .subtitle {
+        @include navStyle;
+        color: var(--copy);
+        font-size: 1.25rem
+    }
 }
 
 .title {
-    order: 1;
-    margin: auto 0;
-    text-transform: none;
-    font-family: 'Permanent Marker', cursive;
+    margin: 0;
 }
 
-.description {
-    order: 2;
-    margin: 0 0 10px;
+.menu {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    cursor: pointer;
     text-transform: uppercase;
+    border: 1px solid var(--link);
+    padding: 10px 20px;
+    color: var(--link);
+    margin: 20px;
+
+    @include breakpoint(min-width 1100px) {
+        margin: 30px;
+    }
 }

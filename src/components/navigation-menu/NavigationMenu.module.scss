@@ -7,17 +7,12 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba($c-white, 0.95);
+    background-color: var(--background-modal);
     overflow: auto;
-    
-    @media (prefers-color-scheme: dark) {
-        background-color: rgba($c-black, 0.95);
-    }
+    display: flex;
 }
 
 .content {
-    min-height: 100%;
-    margin: 0;
-    display: flex;
+    margin: auto;
     flex-direction: column;
 }
