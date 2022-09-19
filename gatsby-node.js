@@ -25,8 +25,6 @@ exports.onCreateNode = ({
 
     if (node.internal.type === "Directory") {
         if (node.sourceInstanceName === "media") {
-            // in some case the trailing slash is missing.
-            // Always add it and normalize the path to remove duplication
             const parentDirectory = path.normalize(node.dir + "/")
             const parent = getNodesByType("Directory").find(
                 n => path.normalize(n.absolutePath + "/") === parentDirectory
@@ -87,15 +85,6 @@ exports.createPages = async function ({ actions, graphql }) {
         }
     `)
 
-    // data.allDirectory.edges.forEach(directory => {
-    //     const slug = directory.node.fields.relativePath.replace(/\s/g, "-").toLowerCase()
-    //     actions.createPage({
-    //         path: slug,
-    //         component: require.resolve(`./src/templates/PhotoIndex.jsx`),
-    //         context: { relativePath: directory.node.relativePath },
-    //     })
-    // })
-
     data.allFile.edges.forEach(photo => {
         const slug = photo.node.fields.slug
         actions.createPage({
@@ -104,19 +93,6 @@ exports.createPages = async function ({ actions, graphql }) {
             context: { relativePath: photo.node.relativePath },
         })
     })
-
-    // data.allFile.group.forEach(folder => {
-    //     const slug = folder.fieldValue.replace(/\s/g, "-").toLowerCase();
-    //     actions.createPage({
-    //         path: slug,
-    //         component: require.resolve(`./src/templates/PhotoIndex.jsx`),
-    //         context: {
-    //             slug: slug,
-    //             dir: folder.fieldValue,
-    //             dirRegex: "/^" + folder.fieldValue + "//"
-    //         },
-    //     })
-    // })
 
     data.allDirectory.group.forEach(folder => {
         const slug = `photos/${folder.fieldValue.replace(/\s/g, "-").toLowerCase()}`

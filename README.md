@@ -4,7 +4,7 @@ A simple site builder, informed by file structure.
 
 It's my hope that this static site builder will make it painless for photographers looking to build a simple, elegant portfolio to publish their work online.
 
-<!-- ![Preview of ReactPhoto homepage using placeholder images](preview.jpg) -->
+![Preview of ReactPhoto homepage using placeholder images](./preview.jpg)
 
 ## Features
 
@@ -12,93 +12,66 @@ It's my hope that this static site builder will make it painless for photographe
 
 Following the guide below, which requires very little coding knowledge. Simply add your own folders/subfolders and photos to create your site structure, then run the required npm commands to build your site.
 
+Run ``npm i --legacy-peer-deps`` from the root folder to build the required packages. Run ``gatsby develop`` afterwards to build the site locally.
+
+
 ### Designed for mobile
 
-Using the best responsive design practices, the site helps your photos look their best whether on mobile or widescreen. Using masonry, the layout adjusts dynamically to fit your images.
+Designed to respond to browser window size, the site helps your photos look their best whether on mobile or widescreen. Using masonry, the layout adjusts dynamically to fit your images.
+
 
 ### Utilize metadata
 
 To avoid writing the same copy, many times over, **ReactPhoto** will extract EXIF/IPTC information which is commonly added during the post-processing stage, meaning all of your information can be stored in the image file itself.
 
+
 ### Dark theme
 
 Includes light and dark color themes, which adjust automatically based on site visitor preferences.
+
 
 ## Demo
 
 ReactPhoto is currently being used to power [my own photo site, bryPhoto](https://www.bryphoto.co.uk/). I will keep this updated as development continues.
 
+This project was originally bootstrapped with [Create React App](https://github.com/facebook/create-react-app). It has since been rebuilt from the ground up, and is powered by [Gatsby](https://www.gatsbyjs.com).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Getting started
 
 Grab this project and install dependencies using [Node Package Manager](https://docs.npmjs.com/about-npm/index.html).
 
-Firstly, you'll need to create a new folder in the root of this project called ``photography``. This folder, and its subfolders/files will create your site structure.
+Firstly, you'll need to create a new folder in the src of this project called ``media``. This folder, and its subfolders/files will create your site structure.
 
-Any files in ``photography`` root will be ignored. Any folders will create top-level-navigation, and their children and subfolders will create subnavigation and pages.
+Any files in ``media`` root will be ignored. Any folders will create top-level-navigation, with subfolders and images creating subnavigation and photo pages. To an extent, the site will mirror your folder structure.
 
 Navigation and URLs are generated from folder and file names.
 
+
 ### Photo metadata
 
-You can use IPTC metadata to overwrite a photo's page title (using the ``Headline`` field), and add caption text.
+EXIF metadata is supported, displaying the following attributes when available:
+- Camera
+- Lens
+- FocalLength
+- ExposureTime
+- ApertureValue
+- ISO
+- Flash
 
-Currently supported attributes are:
+Additionally, you can use IPTC metadata add a description (using the ``Caption`` field).
 
-- ~~Headline~~ [Deprecated]
-- Caption
-
-In future, there will be configurable support for EXIF data, including location and camera details.
 
 ### Site configuration
 
-You can edit the ``config`` file in ``src/data/config.json`` to customise your information - including site title, author and social media info.
+You can edit the ``config`` file in ``src/data/config.json`` to customise your information - including site title, author and social media info. You can also choose whether to aggregate photos to a single navigation link (``aggregateGallery``) - this is the default and recommended when listing multiple albums.
 
-To change the site colors, you can edit the ``mixins`` file in ``src/styles/_mixins.scss``. If you like, you can supply hex values or use your own variables here. 
+To change the site colors, you can edit the ``themes`` file in ``src/styles/themes.css``. If you like, you can supply your own colours using hex/rgba values respectively. *Please note*, there is a light (default) and dark theme, and your own color values should contrast sufficiently for legibility.
 
-Please note, there is a light (default) and dark theme, and your own color values should contrast sufficiently for legibility.
+You should also update the markdown in the ``About`` page, via ``src/data/about.mdx``, supplying your own description text here. Images can be updated by replacing those in ``src/images/about``. _Please note: this previously used a separate markdown file, but has since stopped working following updates from Gatsby. I might address this in a future release._
 
-You should also update the markup in the ``About`` page, via ``src/views/about/About.jsx``, supplying your own image and description text here.
 
-## Available Scripts
+## Credits
+Included photos are for demonstration purposes only, and were taken and owned by [Bryan McDowall](https://www.bryphoto.co.uk/). Redistribution and alteration is denied without express permission.
 
-In the project directory, you can run:
-
-### `yarn setup`
-
-Run this to create your data file, and export your photos for use with the application. This will generate the required thumbnails and extract metadata if available.
-
-Each time you run this, the contents of ``src/media`` will be replaced with the content in your ``photography`` folder. You will need to run this each time you want to update the photos on your site. The source files remain unchanged.
-
-If you don't successfully complete the initial setup, the application will not build correctly.
-
-### `yarn start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Thanks to [Finn Scott](https://github.com/GeeWizWow) for direct contributions to the original release of ReactPhoto. Thanks also to Thomas Philips for assistace with RegEx queries.

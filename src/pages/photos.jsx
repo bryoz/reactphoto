@@ -73,20 +73,7 @@ export default function Photos() {
                             columnClassName={styles.column}
                         >
 
-                            {getGroupedData(data.allFile.group).map(function(folder){
-                                // let current
-                                // let next
-
-                                // next = folder.fieldValue.split('/')[0]
-
-                                // if(current == next) {
-                                //     console.log(true)
-                                // } else {
-                                //     console.log(false)
-                                // }
-
-                                // current = next
-
+                            {getGroupedData(data.allFile.group).map(function(folder) {
                                 const image = getImage(folder.edges[0].node.children[0].gatsbyImageData)
 
                                 return (

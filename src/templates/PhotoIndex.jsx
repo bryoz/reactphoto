@@ -11,11 +11,8 @@ import Breadcrumb from "../components/breadcrumb"
 import * as styles from "./PhotoIndex.module.scss"
 
 export default function PhotoIndex( props ) {
-    // const gallery = props.data.file.relativeDirectory
     const photos = props.data.allFile.edges
     const thumbs = props.data.thumbs.group
-
-    console.log(props)
 
     const breakpointColumnsObj = {
         default: 4,
