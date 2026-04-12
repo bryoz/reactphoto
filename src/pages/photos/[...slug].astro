@@ -1,0 +1,308 @@
+---
+import { getImage } from 'astro:assets';
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/breadcrumb/index.jsx';
+import PhotoHandler from '../../components/photo-handler/index.jsx';
+import GalleryThumbnail from '../../components/gallery-thumbnail/index.jsx';
+import {
+  buildImageList,
+  getDirectoriesFromImages,
+  getImagesInDirectory,
+  getChildDirectories,
+  getThumbnailForDirectory,
+  toSlug,
+  getMediaFilePath,
+} from '../../lib/media.js';
+import { getExifData } from '../../lib/exif.js';
+
+export async function getStaticPaths() {
+  const imageModules = import.meta.glob('/src/media/**/*.{jpg,jpeg,png,gif,webp}', { eager: true });
+  const images = buildImageList(imageModules);
+  const directories = getDirectoriesFromImages(images);
+  const paths = [];
+
+  // Directory (gallery) pages
+  for (const dir of directories) {
+    paths.push({
+      params: { slug: dir.slug },
+      props: { type: 'gallery', dirPath: dir.path, images, imageModules },
+    });
+  }
+
+  // Individual photo pages
+  for (const img of images) {
+    paths.push({
+      params: { slug: img.slug },
+      props: { type: 'photo', image: img, images, imageModules },
+    });
+  }
+
+  return paths;
+}
+
+const { type, dirPath, image, images, imageModules } = Astro.props;
+const pathname = Astro.url.pathname;
+
+let pageTitle = '';
+let galleryPhotos = [];
+let subCollections = [];
+let photoData = null;
+let exif = null;
+
+if (type === 'gallery') {
+  // Gallery page
+  const dirImages = getImagesInDirectory(images, dirPath);
+  const childDirs = getChildDirectories(images, dirPath);
+  pageTitle = dirPath.split('/').pop().replace(/-/g, ' ');
+
+  // Process gallery thumbnails
+  galleryPhotos = await Promise.all(
+    dirImages.map(async (img) => {
+      const optimized = await getImage({ src: img.imageImport, width: 480 });
+      return {
+        src: optimized.src,
+        width: optimized.attributes.width,
+        height: optimized.attributes.height,
+        slug: img.slug,
+        name: img.name,
+      };
+    })
+  );
+
+  // Process subcollection thumbnails
+  subCollections = await Promise.all(
+    childDirs.map(async (dir) => {
+      const thumb = getThumbnailForDirectory(images, dir.path);
+      let thumbData = null;
+      if (thumb) {
+        const optimized = await getImage({
+          src: thumb.imageImport,
+          width: 480,
+          height: 480,
+          fit: 'cover',
+        });
+        thumbData = {
+          src: optimized.src,
+          width: optimized.attributes.width,
+          height: optimized.attributes.height,
+        };
+      }
+      return { ...dir, thumb: thumbData };
+    })
+  );
+} else {
+  // Photo detail page
+  pageTitle = image.name;
+  const optimized = await getImage({ src: image.imageImport, width: 1920, quality: 100 });
+  const filePath = getMediaFilePath(image.relativePath);
+  exif = await getExifData(filePath);
+
+  photoData = {
+    src: optimized.src,
+    width: optimized.attributes.width,
+    height: optimized.attributes.height,
+    name: image.name,
+    directory: image.directory,
+    directorySlug: toSlug(image.directory),
+  };
+}
+---
+
+<Layout title={pageTitle}>
+  <Breadcrumb pathname={pathname} />
+
+  {type === 'gallery' ? (
+    <>
+      <h1 class="gallery-title">{pageTitle}</h1>
+
+      {subCollections.length > 0 && (
+        <div class="collections-wrapper">
+          <div class="grid">
+            {subCollections.map((col) => (
+              <div class="collection">
+                <a href={`/photos/${col.slug}`} class="collectionLink">
+                  {col.thumb && (
+                    <GalleryThumbnail
+                      src={col.thumb.src}
+                      width={col.thumb.width}
+                      height={col.thumb.height}
+                      name={col.name}
+                    />
+                  )}
+                </a>
+                <h3 class="collectionTitle">
+                  <a href={`/photos/${col.slug}`} class="collectionTitleLink">
+                    {col.name}
+                  </a>
+                </h3>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <PhotoHandler client:load photos={galleryPhotos} />
+    </>
+  ) : photoData && (
+    <>
+      <h1 class="photo-title">{photoData.name}</h1>
+      <img
+        src={photoData.src}
+        alt=""
+        width={photoData.width}
+        height={photoData.height}
+        style="width: 100%; height: auto; display: block;"
+      />
+
+      {exif && (
+        <>
+          <div class="details">
+            {exif.dateTaken && <p class="date">{exif.dateTaken}</p>}
+            {exif.description && exif.description.length > 0 && (
+              <p class="desc">{exif.description}</p>
+            )}
+          </div>
+
+          <ul class="meta">
+            {exif.camera && (
+              <li>
+                <p class="field">Camera</p>
+                <p class="value">{exif.camera}</p>
+              </li>
+            )}
+            {(exif.lensMake || exif.lensModel) && !exif.isAppleLens && (
+              <li>
+                <p class="field">Lens</p>
+                <p class="value">{exif.lensMake} {exif.lensModel}</p>
+              </li>
+            )}
+            {exif.focalLength && (
+              <li>
+                <p class="field">Focal length</p>
+                <p class="value">{exif.focalLength}mm</p>
+              </li>
+            )}
+            {exif.shutter && (
+              <li>
+                <p class="field">Exposure</p>
+                <p class="value">{exif.shutter}</p>
+              </li>
+            )}
+            {exif.aperture && (
+              <li>
+                <p class="field">Aperture</p>
+                <p class="value">ƒ/{exif.aperture}</p>
+              </li>
+            )}
+            {exif.iso && (
+              <li>
+                <p class="field">ISO</p>
+                <p class="value">{exif.iso}</p>
+              </li>
+            )}
+            {exif.flash && !exif.isAppleLens && (
+              <li>
+                <p class="field">Flash</p>
+                <p class="value">{exif.flash}</p>
+              </li>
+            )}
+          </ul>
+        </>
+      )}
+
+      <div class="backWrapper">
+        <a
+          href={`/photos/${photoData.directorySlug}`}
+          class="back"
+        >
+          Back to "{photoData.directory.split('/').pop()}"
+        </a>
+      </div>
+    </>
+  )}
+</Layout>
+
+<style lang="scss">
+  .gallery-title {
+    margin: 10px 0 100px;
+    text-transform: capitalize;
+  }
+
+  .collections-wrapper {
+    margin-bottom: 80px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+
+    @media (min-width: 1100px) {
+      gap: 30px;
+    }
+  }
+
+  .collectionTitle {
+    text-align: center;
+  }
+
+  .collectionTitleLink {
+    color: var(--link);
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .photo-title {
+    margin: 10px 0 100px;
+  }
+
+  .date {
+    text-transform: uppercase;
+  }
+
+  .desc {
+    font-size: 1.2rem;
+    line-height: 1.4;
+  }
+
+  .details {
+    text-align: center;
+    margin-bottom: 50px;
+    border-bottom: 1px solid var(--subtle);
+    padding-bottom: 50px;
+  }
+
+  .meta {
+    list-style: none;
+    text-align: center;
+    margin-bottom: 50px;
+    border-bottom: 1px solid var(--subtle);
+    padding: 0 0 50px;
+
+    li {
+      margin-bottom: 30px;
+    }
+  }
+
+  .field {
+    text-transform: uppercase;
+    margin: 0 0 10px;
+  }
+
+  .value {
+    font-size: 2rem;
+    margin: 0;
+  }
+
+  .backWrapper {
+    text-align: center;
+  }
+
+  .back {
+    color: var(--link);
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+</style>

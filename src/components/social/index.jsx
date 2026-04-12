@@ -1,5 +1,4 @@
 import React from "react"
-import { graphql, useStaticQuery } from "gatsby"
 import {
     Fa500Px,
     FaBehance,
@@ -38,31 +37,18 @@ const IconRetrieve = ({ icon }) => {
         ['vimeo', <FaVimeo />],
         ['youtube', <FaYoutube />],
     ])
-    return mapIcons.has(icon) ? mapIcons.get(icon) : mapIcons.get('default')
+    return mapIcons.has(icon) ? mapIcons.get(icon) : null
 }
 
-export default function Social() {
-    const data = useStaticQuery(graphql` {
-        site {
-            siteMetadata {
-                instagram
-                social {
-                    name
-                    title
-                    url
-                }
-            }
-        }
-    }`);
-
+export default function Social({ config }) {
     return (
         <div className={styles.wrapper}>
             <ul className={styles.list}>
-                {data.site.siteMetadata.instagram &&
+                {config.instagram &&
                     <li className={cx("item", "instagram")}>
                         <a
-                            className={styles.link} 
-                            href={`https://instagram.com/${data.site.siteMetadata.instagram}`}
+                            className={styles.link}
+                            href={`https://instagram.com/${config.instagram}`}
                             target="_blank"
                             rel="noopener noreferrer"
                         >
@@ -70,10 +56,10 @@ export default function Social() {
                         </a>
                     </li>
                 }
-                {data.site.siteMetadata.social.map((item) =>(
+                {config.social.map((item) =>(
                     (item.url && item.url.length > 0) ?
                     <li key={item.name} className={cx("item", item.name)}>
-                        <a 
+                        <a
                             className={styles.link}
                             href={item.url}
                             target="_blank"

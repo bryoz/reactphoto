@@ -1,0 +1,29 @@
+---
+import { getImage } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import PhotoHandler from '../components/photo-handler/index.jsx';
+import { buildImageList, sortByBirthtime } from '../lib/media.js';
+
+const imageModules = import.meta.glob('/src/media/**/*.{jpg,jpeg,png,gif,webp}', { eager: true });
+const allImages = buildImageList(imageModules);
+const sorted = sortByBirthtime(allImages).slice(0, 20);
+
+const photos = await Promise.all(
+  sorted.map(async (img) => {
+    const optimized = await getImage({ src: img.imageImport, width: 480 });
+    return {
+      src: optimized.src,
+      width: optimized.attributes.width,
+      height: optimized.attributes.height,
+      slug: img.slug,
+      name: img.name,
+    };
+  })
+);
+---
+
+<Layout isHome>
+  <main>
+    <PhotoHandler client:load photos={photos} />
+  </main>
+</Layout>

@@ -1,13 +1,8 @@
 import React from "react";
-import { Link } from "gatsby"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
-
 import Masonry from 'react-masonry-css'
-
 import * as styles from "./PhotoHandler.module.scss"
 
 const PhotoHandler = ({ photos }) => {
-
     const breakpointColumnsObj = {
         default: 4,
         1100: 3,
@@ -21,21 +16,22 @@ const PhotoHandler = ({ photos }) => {
             className={styles.wrapper}
             columnClassName={styles.column}
         >
-            {photos.map(function(photo){
-                photo = photo.node
-                const image = getImage(photo)
-
+            {photos.map(function(photo) {
                 return (
-                    <Link
+                    <a
                         className={styles.link}
-                        to={photo.fields.slug}
-                        key={photo.relativePath}
+                        href={`/photos/${photo.slug}`}
+                        key={photo.slug}
                     >
-                        <GatsbyImage
-                            image={image}
+                        <img
+                            src={photo.src}
                             alt={photo.name}
+                            width={photo.width}
+                            height={photo.height}
+                            loading="lazy"
+                            style={{ width: '100%', height: 'auto', display: 'block' }}
                         />
-                    </Link>
+                    </a>
                 )
             })}
         </Masonry>

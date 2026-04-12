@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Not found">
+  <main class="notfound">
+    <h1>Page not found</h1>
+    <p>
+      Sorry, we couldn't find what you were looking for.
+      <br /><br />
+      <a href="/">Go home</a>.
+    </p>
+  </main>
+</Layout>
+
+<style>
+  .notfound {
+    padding: 96px 0;
+  }
+
+  .notfound h1 {
+    margin-top: 0;
+    margin-bottom: 64px;
+    max-width: 320px;
+  }
+
+  .notfound p {
+    margin-bottom: 48px;
+  }
+</style>
