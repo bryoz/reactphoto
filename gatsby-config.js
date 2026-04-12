@@ -30,19 +30,6 @@ module.exports = {
     },
     plugins: [
         "gatsby-plugin-image",
-        {
-            resolve: `gatsby-plugin-mdx`,
-            options: {
-              gatsbyRemarkPlugins: [
-                {
-                  resolve: `gatsby-remark-images`,
-                  options: {
-                    maxWidth: 1200,
-                  },
-                },
-              ],
-            },
-        },
         "gatsby-plugin-sharp",
         "gatsby-transformer-sharp",
         "gatsby-plugin-sharp-exif",
