@@ -1,0 +1,86 @@
+---
+import config from '../config';
+import Header from '../components/header/index.jsx';
+import Footer from '../components/footer/index.jsx';
+import { buildImageList, getTopLevelDirectories } from '../lib/media.js';
+
+import '../styles/themes.css';
+
+const { isHome = false, title } = Astro.props;
+
+// Build folder list for navigation
+const imageModules = import.meta.glob('/src/media/**/*.{jpg,jpeg,png,gif,webp}', { eager: true });
+const images = buildImageList(imageModules);
+const folders = getTopLevelDirectories(images);
+
+const pageTitle = title ? `${title} | ${config.title}` : config.title;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <div class="layout-wrapper">
+      <div class="layout-body">
+        <Header
+          client:load
+          isHome={isHome}
+          config={config}
+          folders={folders}
+        />
+        <slot />
+      </div>
+      <Footer config={config} />
+    </div>
+  </body>
+</html>
+
+<style lang="scss" is:global>
+  @import '../styles/normalise';
+
+  html {
+    font-family: 'Karla', sans-serif;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--copy);
+  }
+
+  .title {
+    font-family: 'Permanent Marker', cursive;
+  }
+
+  a {
+    color: var(--link);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<style lang="scss">
+  .layout-wrapper {
+    background: var(--background);
+    min-height: 100vh;
+    color: var(--copy);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .layout-body {
+    flex-grow: 1;
+    padding: 0 20px 100px;
+    max-width: 1400px;
+    width: calc(100% - 40px);
+    margin: auto;
+
+    @media (min-width: 1100px) {
+      padding: 0 30px 100px;
+      width: calc(100% - 60px);
+    }
+  }
+</style>

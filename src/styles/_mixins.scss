@@ -1,5 +1,3 @@
-@import "breakpoint";
-
 $small-up: 480px;
 $medium-up: 768px;
 $page-width: 980px;
@@ -9,8 +7,6 @@ $c-black: #0f0f0f;
 $c-white: #ecede8;
 $c-red: #f64c72;
 
-$c-primary: darken($c-red, 10%);
-$c-primary-dark: lighten($c-red, 10%);
 
 @mixin flexList {
     list-style: none;

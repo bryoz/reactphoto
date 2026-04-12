@@ -1,18 +1,17 @@
 import React from "react";
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
-
 import * as styles from "./GalleryThumbnail.module.scss"
 
-export default function GalleryThumbnail(props) {
-    const image = getImage(props.photo)
-
+export default function GalleryThumbnail({ src, width, height, name }) {
     return (
         <div className={styles.wrapper}>
-            <GatsbyImage
-                image={image}
-                alt=""
+            <img
+                src={src}
+                alt={name || ""}
+                width={width}
+                height={height}
+                loading="lazy"
+                style={{ width: '100%', height: 'auto', display: 'block' }}
             />
         </div>
     )
 }
-

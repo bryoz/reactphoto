@@ -1,4 +1,4 @@
-.cache/
-/public/
-/node_modules/
+node_modules/
+dist/
+.astro/
 .DS_Store
